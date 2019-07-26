@@ -10,10 +10,18 @@ namespace BachHoaOnline.Controllers
 {
     public class HomeController : Controller
     {
+        BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
         public IActionResult Index()
         {
-            return View();
+            return View(db.Sanpham.ToList());
         }
+
+        public IActionResult Details(int id)
+        {
+            return View(db.Sanpham.Where(x=>x.Masp==id));
+        }
+
+        
 
         public IActionResult About()
         {

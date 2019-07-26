@@ -1,0 +1,102 @@
+﻿@model BachHoaOnline.Models.Sanpham
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sanpham</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tenhh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tenhh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tenalias)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tenalias)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dongia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dongia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Giamgia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Giamgia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hinh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ncc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ncc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Thuonghieu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Thuonghieu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Xuatxu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Xuatxu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Loai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Loai)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chitietloai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chitietloai)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Solanxem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Solanxem)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ngaysx)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ngaysx)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Motadonvi)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Motadonvi)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="AddToCart" asp-route-id="@Model.Masp">Thêm vào giỏ</a> |
+    <a asp-action="Index">Trở về</a>
+</div>
