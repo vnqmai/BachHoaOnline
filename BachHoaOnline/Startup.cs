@@ -31,6 +31,10 @@ namespace BachHoaOnline
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -52,6 +56,7 @@ namespace BachHoaOnline
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
