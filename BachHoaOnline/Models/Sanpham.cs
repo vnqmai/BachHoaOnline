@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BachHoaOnline.Helper;
+using System;
 using System.Collections.Generic;
 
 namespace BachHoaOnline.Models
@@ -7,7 +8,7 @@ namespace BachHoaOnline.Models
     {
         public int Masp { get; set; }
         public string Tenhh { get; set; }
-        public string Tenalias { get; set; }
+        public string Tenalias { get { return StaticClass.ToURLFriendly(Tenhh); } set { } }
         public string Dongia { get; set; }
         public string Giamgia { get; set; }
         public string Hinh { get; set; }

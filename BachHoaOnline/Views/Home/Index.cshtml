@@ -105,7 +105,8 @@
                         @Html.DisplayFor(modelItem => item.Motadonvi)
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.Masp">Chi tiết</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.Masp">Chi tiết</a> |*@
+                        <a title="@item.Tenhh" href="san-pham/@item.Tenalias">Chi tiết</a>
                         <a asp-action="AddToCart" asp-route-id="@item.Masp">Thêm vào giỏ</a>
                     </td>
                 </tr>

@@ -16,9 +16,17 @@ namespace BachHoaOnline.Controllers
             return View(db.Sanpham.ToList());
         }
 
+        [Route("san-pham/{tenHHSEO}")]
         public IActionResult Details(int id)
         {
-            return View(db.Sanpham.Where(x=>x.Masp==id));
+            return View(db.Sanpham.SingleOrDefault(x => x.Masp == id));
+        }
+        
+        public ActionResult SEOUrl(string tenHHSEO)
+        {
+            var id = int.Parse(tenHHSEO.Substring(0, tenHHSEO.IndexOf("-")));
+            var hh = db.Sanpham.SingleOrDefault(p => p.Masp == id);
+            return View("Details", hh);
         }
 
         public List<CartItem> Carts
