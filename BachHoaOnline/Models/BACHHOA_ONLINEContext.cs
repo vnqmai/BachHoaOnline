@@ -28,7 +28,7 @@ namespace BachHoaOnline.Models
         public virtual DbSet<Phancong> Phancong { get; set; }
         public virtual DbSet<Phanquyen> Phanquyen { get; set; }
         public virtual DbSet<Phongban> Phongban { get; set; }
-        public virtual DbSet<Sanpham> Sanpham { get; set; }
+        
         public virtual DbSet<Thuonghieu> Thuonghieu { get; set; }
         public virtual DbSet<Trangthai> Trangthai { get; set; }
         public virtual DbSet<Trangweb> Trangweb { get; set; }
@@ -494,61 +494,6 @@ namespace BachHoaOnline.Models
                 entity.Property(e => e.Thontin)
                     .HasColumnName("THONTIN")
                     .HasMaxLength(255);
-            });
-
-            modelBuilder.Entity<Sanpham>(entity =>
-            {
-                entity.HasKey(e => e.Masp);
-
-                entity.ToTable("SANPHAM");
-
-                entity.Property(e => e.Masp)
-                    .HasColumnName("MASP")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.Chitietloai)
-                    .HasColumnName("CHITIETLOAI")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Dongia)
-                    .HasColumnName("DONGIA")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Giamgia)
-                    .HasColumnName("GIAMGIA")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Hinh).HasColumnName("HINH");
-
-                entity.Property(e => e.Loai)
-                    .HasColumnName("LOAI")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Mota).HasColumnName("MOTA");
-
-                entity.Property(e => e.Motadonvi).HasColumnName("MOTADONVI");
-
-                entity.Property(e => e.Ncc)
-                    .HasColumnName("NCC")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Ngaysx).HasColumnName("NGAYSX");
-
-                entity.Property(e => e.Solanxem)
-                    .HasColumnName("SOLANXEM")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Tenalias).HasColumnName("TENALIAS");
-
-                entity.Property(e => e.Tenhh).HasColumnName("TENHH");
-
-                entity.Property(e => e.Thuonghieu)
-                    .HasColumnName("THUONGHIEU")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Xuatxu)
-                    .HasColumnName("XUATXU")
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Thuonghieu>(entity =>

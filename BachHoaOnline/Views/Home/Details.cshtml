@@ -1,4 +1,4 @@
-﻿@model BachHoaOnline.Models.Sanpham
+﻿@model BachHoaOnline.Models.Hanghoa
 
 @{
     ViewData["Title"] = "Details";
@@ -38,25 +38,25 @@
             @Html.DisplayNameFor(model => model.Hinh)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Hinh)
+           <img src="~/images/@Html.DisplayFor(model => model.Hinh)"/>
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Ncc)
+            @Html.DisplayNameFor(model => model.Mancc)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Ncc)
+            @Html.DisplayFor(model => model.Mancc)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Thuonghieu)
+            @Html.DisplayNameFor(model => model.Math)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Thuonghieu)
+            @Html.DisplayFor(model => model.Math)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Xuatxu)
+            @Html.DisplayNameFor(model => model.Maxx)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Xuatxu)
+            @Html.DisplayFor(model => model.Maxx)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Mota)
@@ -65,10 +65,10 @@
             @Html.DisplayFor(model => model.Mota)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Loai)
+            @Html.DisplayNameFor(model => model.Maloai)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Loai)
+            @Html.DisplayFor(model => model.Maloai)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Chitietloai)
@@ -97,6 +97,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="AddToCart" asp-route-id="@Model.Masp">Thêm vào giỏ</a> |
+    <a href="/add-to-cart/@Model.Tenalias">Thêm vào giỏ</a> |
     <a asp-action="Index">Trở về</a>
 </div>

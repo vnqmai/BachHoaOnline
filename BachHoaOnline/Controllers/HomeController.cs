@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BachHoaOnline.Models;
+using BachHoaOnline.Helper;
 
 namespace BachHoaOnline.Controllers
 {
@@ -13,19 +14,19 @@ namespace BachHoaOnline.Controllers
         BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
         public IActionResult Index()
         {
-            return View(db.Sanpham.ToList());
+            return View(db.Hanghoa.ToList());
         }
 
         [Route("san-pham/{tenHHSEO}")]
-        public IActionResult Details(int id)
+        public IActionResult Details(string tenHHSEO)
         {
-            return View(db.Sanpham.SingleOrDefault(x => x.Masp == id));
+            return View(db.Hanghoa.SingleOrDefault(x => x.Tenalias == tenHHSEO));
         }
         
         public ActionResult SEOUrl(string tenHHSEO)
         {
             var id = int.Parse(tenHHSEO.Substring(0, tenHHSEO.IndexOf("-")));
-            var hh = db.Sanpham.SingleOrDefault(p => p.Masp == id);
+            var hh = db.Hanghoa.SingleOrDefault(p => p.Mahh == id);
             return View("Details", hh);
         }
 
@@ -43,12 +44,13 @@ namespace BachHoaOnline.Controllers
             }
         }
 
-        public IActionResult AddToCart(int id)
-        {
+        [Route("add-to-cart/{url}")]
+        public IActionResult AddToCart(string url)
+        {            
             //lấy giỏ hàng đang có
             List<CartItem> gioHang = Carts;
             //kiểm tra xem hàng đã có trong giỏ chưa
-            CartItem item = gioHang.SingleOrDefault(p => p.Masp == id);
+            CartItem item = gioHang.SingleOrDefault(p => p.Tensp == url);
             //nếu có
             if (item != null)
             {
@@ -57,28 +59,28 @@ namespace BachHoaOnline.Controllers
             }
             else
             {
-                Sanpham hh = db.Sanpham.SingleOrDefault(p => p.Masp == id);
-                if(hh.Giamgia!="")
+                Hanghoa hh = db.Hanghoa.SingleOrDefault(p => p.Tenalias == url);
+                if(hh.Giamgia!=0)
                     item = new CartItem
                     {
-                        Masp = id,
+                        Masp = hh.Mahh,
                         Soluong = 1,
                         Tensp = hh.Tenhh,
                         Hinh = hh.Hinh,
-                        Giamgia = float.Parse(hh.Giamgia),
-                        Dongia = float.Parse(hh.Dongia),
-                        ThanhTien = (float)(double.Parse(hh.Dongia) * (1 - (double.Parse(hh.Giamgia)/100)))
+                        Giamgia = (float)hh.Giamgia,
+                        Dongia = (float) hh.Dongia,
+                        ThanhTien = (float)(hh.Dongia * (1 - (hh.Giamgia / 100)))
                     };
                 else
                     item = new CartItem
                     {
-                        Masp = id,
+                        Masp = hh.Mahh,
                         Soluong = 1,
                         Tensp = hh.Tenhh,
                         Hinh = hh.Hinh,
                         Giamgia = 0,
-                        Dongia = float.Parse(hh.Dongia),
-                        ThanhTien = (float)(double.Parse(hh.Dongia))
+                        Dongia = (float) hh.Dongia,
+                        ThanhTien = (float)hh.Dongia
                     };
                 gioHang.Add(item);
             }
