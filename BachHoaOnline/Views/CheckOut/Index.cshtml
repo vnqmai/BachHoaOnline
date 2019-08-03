@@ -1,76 +1,157 @@
 ﻿@model BachHoaOnline.Models.Hoadon
-
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="~/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="~/vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="~/vendors/linericon/style.css">
+<link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/vendors/nouislider/nouislider.min.css">
 
-<h4>Hoadon</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CheckOut">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Makh" class="control-label"></label>
-                <select asp-for="Makh" class ="form-control" asp-items="ViewBag.Makh"></select>
+<link rel="stylesheet" href="~/vendors/css/style.css">
+
+<!--================Checkout Area =================-->
+<section class="checkout_area section-margin--small">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <form class="row contact_form" action="CheckOut" method="post" novalidate="novalidate">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Makh" class="control-label"></label>
+                            <select asp-for="Makh" class="form-control" asp-items="ViewBag.Makh"></select>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Ngaydat" class="control-label"></label>
+                            <input asp-for="Ngaydat" class="form-control" />
+                            <span asp-validation-for="Ngaydat" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Ngaygiao" class="control-label"></label>
+                            <input asp-for="Ngaygiao" class="form-control" />
+                            <span asp-validation-for="Ngaygiao" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Hoten" class="control-label"></label>
+                            <input asp-for="Hoten" class="form-control" />
+                            <span asp-validation-for="Hoten" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Diachi" class="control-label"></label>
+                            <input asp-for="Diachi" class="form-control" />
+                            <span asp-validation-for="Diachi" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Cachthanhtoan" class="control-label"></label>
+                            <input asp-for="Cachthanhtoan" class="form-control" />
+                            <span asp-validation-for="Cachthanhtoan" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Cachvanchuyen" class="control-label"></label>
+                            <input asp-for="Cachvanchuyen" class="form-control" />
+                            <span asp-validation-for="Cachvanchuyen" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Phivanchuyen" class="control-label"></label>
+                            <input asp-for="Phivanchuyen" class="form-control" />
+                            <span asp-validation-for="Phivanchuyen" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Matrangthai" class="control-label"></label>
+                            <select asp-for="Matrangthai" class="form-control" asp-items="ViewBag.Matrangthai"></select>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label asp-for="Ghichu" class="control-label"></label>
+                            <input asp-for="Ghichu" class="form-control" />
+                            <span asp-validation-for="Ghichu" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="submit" value="Thanh toán" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
+                            @{
+                                List<CartItem> carts = HttpContextAccessor.HttpContext.Session.Get<List<CartItem>>("gioHang");
+                                float total = 0;
+                                if (carts != null)
+                                {
+                                    @foreach (var item in carts)
+                                    {
+                                        total += item.ThanhTien;
+                                        <li><a href="#">@item.Tensp <span class="middle">x @item.Soluong</span> <span class="last">@item.ThanhTien</span></a></li>
+                                    }
+                                }
+                            }
+                        </ul>
+                            <ul class="list list_2">
+                                <li><a href="#">Total <span>@total</span></a></li>
+                            </ul>
+                            <div class="payment_item">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="selector">
+                                    <label for="f-option5">Check payments</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>
+                                    Please send a check to Store Name, Store Street, Store Town, Store State / County,
+                                    Store Postcode.
+                                </p>
+                            </div>
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="selector">
+                                    <label for="f-option6">Paypal </label>
+                                    <img src="img/product/card.jpg" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>
+                                    Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                    account.
+                                </p>
+                            </div>
+                            <div class="creat_account">
+                                <input type="checkbox" id="f-option4" name="selector">
+                                <label for="f-option4">I’ve read and accept the </label>
+                                <a href="#">terms & conditions*</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="button button-paypal" href="#">Proceed to Paypal</a>
+                            </div>
+                        </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Ngaydat" class="control-label"></label>
-                <input asp-for="Ngaydat" class="form-control" />
-                <span asp-validation-for="Ngaydat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ngaygiao" class="control-label"></label>
-                <input asp-for="Ngaygiao" class="form-control" />
-                <span asp-validation-for="Ngaygiao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hoten" class="control-label"></label>
-                <input asp-for="Hoten" class="form-control" />
-                <span asp-validation-for="Hoten" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Diachi" class="control-label"></label>
-                <input asp-for="Diachi" class="form-control" />
-                <span asp-validation-for="Diachi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cachthanhtoan" class="control-label"></label>
-                <input asp-for="Cachthanhtoan" class="form-control" />
-                <span asp-validation-for="Cachthanhtoan" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cachvanchuyen" class="control-label"></label>
-                <input asp-for="Cachvanchuyen" class="form-control" />
-                <span asp-validation-for="Cachvanchuyen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phivanchuyen" class="control-label"></label>
-                <input asp-for="Phivanchuyen" class="form-control" />
-                <span asp-validation-for="Phivanchuyen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Matrangthai" class="control-label"></label>
-                <select asp-for="Matrangthai" class ="form-control" asp-items="ViewBag.Matrangthai"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ghichu" class="control-label"></label>
-                <input asp-for="Ghichu" class="form-control" />
-                <span asp-validation-for="Ghichu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
+<!--================End Checkout Area =================-->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="~/vendors/skrollr.min.js"></script>
+<script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="~/vendors/nouislider/nouislider.min.js"></script>
+<script src="~/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="~/vendors/mail-script.js"></script>
+<script src="~/vendors/js/main.js"></script>
+
+<script>
+    $('#abc').hide();
+</script>

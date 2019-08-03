@@ -1,0 +1,115 @@
+﻿@model BachHoaOnline.Models.Hoadon
+
+@{
+    ViewData["Title"] = "CheckOut";
+}
+@{ 
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Chitiethoadon> listCT = db.Chitiethoadon.Where(x=>x.Mahd==Model.Mahd).ToList();
+    float total = 0;
+    foreach (var ct in listCT)
+    {
+        total += (float) (ct.Soluong * ct.Dongia);
+    }
+}
+
+<link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="~/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="~/vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="~/vendors/linericon/style.css">
+<link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/vendors/nouislider/nouislider.min.css">
+
+<link rel="stylesheet" href="~/vendors/css/style.css">
+
+<!--================Order Details Area =================-->
+<section class="order_details section-margin--small">
+    <div class="container">
+        <p class="text-center billing-alert">Thank you. Your order has been received.</p>
+        <div class="row mb-5">
+            <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
+                <div class="confirmation-card">
+                    <h3 class="billing-title">Order Info</h3>
+                    <table class="order-rable">
+                        <tr>
+                            <td>Order number</td>
+                            <td>: @Model.Mahd</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>: @Model.Ngaydat</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>: @total VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Payment method</td>
+                            <td>: @Model.Cachthanhtoan</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
+                <div class="confirmation-card">
+                    <h3 class="billing-title">Billing Address</h3>
+                    <table class="order-rable">
+                        <tr>
+                            <td>Name</td>
+                            <td>: @Model.Hoten</td>
+                        </tr>
+                        <tr>
+                            <td>Street</td>
+                            <td>: @Model.Diachi</td>
+                        </tr>                        
+                    </table>
+                </div>
+            </div>            
+        </div>
+        <div class="order_details_table">
+            <h2>Order Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ct in listCT)
+                        {
+                            <tr>
+                                <td>
+                                    <p>@ct.Mahh</p>
+                                </td>
+                                <td>
+                                    <h5>@ct.Soluong</h5>
+                                </td>
+                                <td>
+                                    <p>@ct.Soluong*@ct.Dongia</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Order Details Area =================-->
+
+
+
+<script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="~/vendors/skrollr.min.js"></script>
+<script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="~/vendors/nouislider/nouislider.min.js"></script>
+<script src="~/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="~/vendors/mail-script.js"></script>
+<script src="~/vendors/js/main.js"></script>

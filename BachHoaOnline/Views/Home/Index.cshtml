@@ -4,114 +4,218 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tenhh)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tenalias)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dongia)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Giamgia)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hinh)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mancc)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Math)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Maxx)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mota)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Maloai)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Chitietloai)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Solanxem)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ngaysx)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Motadonvi)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tenhh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tenalias)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dongia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Giamgia)
-                    </td>
-                    <td>
-                        <img src="~/images/@item.Hinh"/>                        
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mancc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Math)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Maxx)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mota)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Maloai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Chitietloai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Solanxem)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ngaysx)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Motadonvi)
-                    </td>
-                    <td>
-                        @*<a asp-action="Details" asp-route-id="@item.Mahh">Chi tiết</a> |*@
-                        <a title="@item.Tenhh" href="san-pham/@item.Tenalias">Chi tiết</a>
-                        <a asp-action="AddToCart" asp-route-id="@item.Mahh">Thêm vào giỏ</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+@{
+    List<Hanghoa> hanghoa = Model.ToList();
+    int count = 0;
+}
+<!-- HOME -->
+<div id="home">
+    <!-- container -->
+    <div class="container">
+        <!-- home wrap -->
+        <div class="home-wrap">
+            <!-- home slick -->
+            <div id="home-slick">
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="~/images/025bbc4aa5162453506f362c12eda0e4.jpg" />
+                    <div class="banner-caption text-center">
+                        <h1>Bags sale</h1>
+                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="~/images/02a66fb2d83019493ff96e7dc4995576.jpg" />
+                    <div class="banner-caption">
+                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="~/images/02c49735d353bcb92a8cca81efbe85f4.jpg" />
+                    <div class="banner-caption">
+                        <h1 class="white-color">New Product <span>Collection</span></h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+            </div>
+            <!-- /home slick -->
+        </div>
+        <!-- /home wrap -->
+    </div>
+    <!-- /container -->
 </div>
+<!-- /HOME -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- banner -->
+            <div class="col-md-4 col-sm-6">
+                <a class="banner banner-1" href="#">
+                    <img src="~/images/0a78d2d09f8b65477a5120b65870ed01.jpg" />
+                    <div class="banner-caption text-center">
+                        <h2 class="white-color">NEW COLLECTION</h2>
+                    </div>
+                </a>
+            </div>
+            <!-- /banner -->
+            <!-- banner -->
+            <div class="col-md-4 col-sm-6">
+                <a class="banner banner-1" href="#">
+                    <img src="~/images/0d217039fd7d2321fae0e8029d2d5c02.jpg" />
+                    <div class="banner-caption text-center">
+                        <h2 class="white-color">NEW COLLECTION</h2>
+                    </div>
+                </a>
+            </div>
+            <!-- /banner -->
+            <!-- banner -->
+            <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
+                <a class="banner banner-1" href="#">
+                    <img src="~/images/1a1e4de0499c5fd63cc77c7c0373be9c.png" />
+                    <div class="banner-caption text-center">
+                        <h2 class="white-color">NEW COLLECTION</h2>
+                    </div>
+                </a>
+            </div>
+            <!-- /banner -->
 
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section-title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Deals Of The Day</h2>
+                    <div class="pull-right">
+                        <div class="product-slick-dots-1 custom-dots"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section-title -->
+            <!-- banner -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="banner banner-2">
+                    <img src="~/images/@hanghoa[0].Hinh" alt="">
+                    <div class="banner-caption">
+                        <h2 class="white-color">NEW<br>COLLECTION</h2>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /banner -->
+            <!-- Product Slick -->
+            <div class="col-md-9 col-sm-6 col-xs-6">
+                <div class="row">
+                    <div id="product-slick-1" class="product-slick">
+                        @for (int j = 0; j < 4; ++j)
+                        {
+                            <!-- Product Single -->
+                            <div class="product product-single">
+                                <div class="product-thumb">
+                                    <div class="product-label">
+                                        <span>New</span>
+                                        <span class="sale">-@hanghoa[j].Giamgia%</span>
+                                    </div>
+                                    <a class="main-btn quick-view" href="/san-pham/@hanghoa[j].Tenalias"><i class="fa fa-search-plus"></i> Xem</a>
+                                    <img src="~/images/@hanghoa[j].Hinh" alt="">
+                                </div>
+                                <div class="product-body">
+                                    <h3 class="product-price">@hanghoa[j].Dongia <del class="product-old-price">@{float giacu = (float)(hanghoa[j].Dongia + hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));} @giacu</del></h3>
+                                    <div class="product-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                    </div>
+                                    <h2 class="product-name"><a href="#">@hanghoa[j].Tenhh</a></h2>
+                                    <div class="product-btns">
+                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                        <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                        <a class="primary-btn add-to-cart" href="/add-to-cart/@hanghoa[j].Tenalias"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                    </div>
+                                </div>
+                                <!-- /Product Single -->
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- /Product Slick -->
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <!-- section title -->
+        <div class="col-md-12">
+            <div class="section-title">
+                <h2 class="title">Latest Products</h2>
+            </div>
+        </div>
+        <!-- section title -->
+        @for (int i = 0; i < 2; ++i)
+        {
+            <div class="row">
+                @for (int j = i * (i + 3); j < 4 * (i + 1); ++j)
+                {
+                    <!-- Product Single -->
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <div class="product-label">
+                                    <span class="sale">-@hanghoa[j].Giamgia%</span>
+                                </div>
+                                <a class="main-btn quick-view" href="/san-pham/@hanghoa[j].Tenalias"><i class="fa fa-search-plus"></i> Xem</a>
+                                <img src="~/images/@hanghoa[j].Hinh" alt="">
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-price">@hanghoa[j].Dongia <del class="product-old-price">@{float giacu = (float)(hanghoa[j].Dongia + (float)hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));}@giacu</del></h3>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o empty"></i>
+                                </div>
+                                <h2 class="product-name"><a href="#">@hanghoa[j].Tenhh</a></h2>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                    <a class="primary-btn add-to-cart" href="/add-to-cart/@hanghoa[j].Tenalias"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Product Single -->
+                }
+            </div>
+        }
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

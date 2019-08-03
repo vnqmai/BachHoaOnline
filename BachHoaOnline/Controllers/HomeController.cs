@@ -30,6 +30,11 @@ namespace BachHoaOnline.Controllers
             return View("Details", hh);
         }
 
+        public IActionResult Shop()
+        {
+            return View(db.Hanghoa.ToList());
+        }
+
         public List<CartItem> Carts
         {
             get
