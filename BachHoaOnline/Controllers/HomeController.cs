@@ -13,14 +13,17 @@ namespace BachHoaOnline.Controllers
     {
         BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
         public IActionResult Index()
-        {
+        {            
             return View(db.Hanghoa.ToList());
         }
 
-        [Route("san-pham/{tenHHSEO}")]
-        public IActionResult Details(string tenHHSEO)
+        [Route("san-pham/{loai}/{tenHHSEO}")]
+        public IActionResult Details(string loai,string tenHHSEO)
         {
-            return View(db.Hanghoa.SingleOrDefault(x => x.Tenalias == tenHHSEO));
+            if(db.Hanghoa.SingleOrDefault(x => x.Tenalias == tenHHSEO)!=null)
+                return View(db.Hanghoa.SingleOrDefault(x => x.Tenalias == tenHHSEO));
+            else
+                return RedirectToAction(controllerName: "Home", actionName: "Error");
         }
         
         public ActionResult SEOUrl(string tenHHSEO)
@@ -30,9 +33,52 @@ namespace BachHoaOnline.Controllers
             return View("Details", hh);
         }
 
+        [Route("danh-muc-san-pham")]
         public IActionResult Shop()
         {
             return View(db.Hanghoa.ToList());
+        }
+
+        
+
+        public IActionResult ShopFilter(int loai, int thuonghieu, int sort, int page)
+        {
+            List<Hanghoa> res = db.Hanghoa.ToList();
+            List<Hanghoa> pres = new List<Hanghoa>();
+
+            res = Filter.FilterByLoaiThuongHieu(res,loai,thuonghieu);
+
+            res = Sort.SortWithOption(res,sort);                  
+
+            int npages = Pagination.GetNumberOfPages(res);
+
+            TempData["Sort"] = sort;
+            TempData["Page"] = page;
+            TempData["Npages"] = npages;
+
+            if (page != 1)
+            {
+                pres = Pagination.GetListOfPage(res,page);
+                return PartialView(pres);
+            }
+
+            return PartialView(res);
+        }
+
+        public IActionResult Search(string tenhh)
+        {
+            List<Hanghoa> res = db.Hanghoa.ToList();
+
+            if (tenhh.Length==0)
+            {
+                return PartialView(res);
+            }
+
+            res = res.Where(x => x.Tenhh.Contains(tenhh)).ToList();
+            if (res != null)
+                return PartialView(res);
+            else
+                return Content("Không tìm thấy sản phẩm " + tenhh + ".");
         }
 
         public List<CartItem> Carts

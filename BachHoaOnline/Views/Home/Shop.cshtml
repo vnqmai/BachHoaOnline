@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<BachHoaOnline.Models.Hanghoa>
+@using BachHoaOnline.Helper;
 
 @{
     ViewData["Title"] = "Shop";
@@ -6,9 +7,9 @@
 
 @{
     BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
-    List<Loai> listLoai = db.Loai.Take(10).ToList();
-    List<Thuonghieu> listTH = db.Thuonghieu.Take(10).ToList();
-    List<Hanghoa> listHH = db.Hanghoa.ToList();
+    List<Loai> listLoai = db.Loai.Take(7).ToList();
+    List<Thuonghieu> listTH = db.Thuonghieu.Take(7).ToList();
+    List<Hanghoa> listHH = Model.Take(12).ToList();
 }
 
 <link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
@@ -35,7 +36,7 @@
                                 <ul>
                                     @foreach (var l in listLoai)
                                     {
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="@l.Tenloai" name="brand"><label for="@l.Tenloai">@l.Tenloai</label></li>
+                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="@l.Maloai" name="category" value="@l.Maloai"><label for="@l.Tenloai">@l.Tenloai</label></li>
                                     }
                                 </ul>
                             </form>
@@ -50,47 +51,48 @@
                             <ul>
                                 @foreach (var th in listTH)
                                 {
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="@th.Tenth" name="brand"><label for="@th.Tenth">@th.Tenth</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="@th.Math" name="brand" value="@th.Math"><label for="@th.Tenth">@th.Tenth</label></li>
                                 }
                             </ul>
                         </form>
                     </div>
-                    <div class="common-filter">
-                        <div class="head">Price</div>
-                        <div class="price-range-area">
-                            <div id="price-range"></div>
-                            <div class="value-wrapper d-flex">
-                                <div class="price">Price:</div>
-                                <span>vnđ</span>
-                                <div id="lower-value"></div>
-                                <div class="to">to</div>
-                                <span>vnđ</span>
-                                <div id="upper-value"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-8 col-md-7">
+            <div class="col-xl-9 col-lg-8 col-md-7 ajax-filter">
                 <!-- Start Filter Bar -->
                 <div class="filter-bar d-flex flex-wrap align-items-center">
                     <div class="sorting">
-                        <select>
-                            <option value="1">Default sorting</option>
-                            <option value="1">Default sorting</option>
-                            <option value="1">Default sorting</option>
+                        <select id="sort">
+                            <option value="-1">-</option>
+                            <option value="1">Giá thấp - cao</option>
+                            <option value="2">Giảm giá nhiều</option>
                         </select>
                     </div>
                     <div class="sorting mr-auto">
-                        <select>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
+                        <select id="page">
+                            @{
+                                int nsanpham = Model.Count();
+                                int npages = 1;
+                                if (nsanpham % 12 == 0)
+                                {
+                                    npages = nsanpham / 12;
+                                }
+                                else
+                                {
+                                    npages = (nsanpham / 12) + 1;
+                                }
+                                
+                                for (int i = 1; i <= npages; ++i)
+                                {
+                                    <option value="@i">Show page @i</option>
+                                }
+                            }
+
                         </select>
                     </div>
                     <div>
                         <div class="input-group filter-bar-search">
-                            <input type="text" placeholder="Search">
+                            <input type="text" placeholder="Search" id="searchByName">
                             <div class="input-group-append">
                                 <button type="button"><i class="ti-search"></i></button>
                             </div>
@@ -99,9 +101,9 @@
                 </div>
                 <!-- End Filter Bar -->
                 <!-- Start Best Seller -->
-                <section class="lattest-product-area pb-40 category-list">
+                <section class="lattest-product-area pb-40 category-list ajax-search">
                     <div class="row">
-                        @foreach (var item in Model)
+                        @foreach (var item in listHH.Take(12))
                         {
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
@@ -113,8 +115,11 @@
                                             <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
                                     </div>
-                                    <div class="card-body">                                        
-                                        <h4 class="card-product__title"><a href="/san-pham/@item.Tenalias">@item.Tenhh</a></h4>
+                                    <div class="card-body">                 
+                                        @{ 
+                                            string loai = @db.Loai.SingleOrDefault(x => x.Maloai == item.Maloai).Tenloaialias;
+                                        }
+                                        <h4 class="card-product__title"><a href="san-pham/@loai/@item.Tenalias">@item.Tenhh</a></h4>
                                         <p class="card-product__price">@item.Dongia</p>
                                     </div>
                                 </div>
@@ -137,7 +142,7 @@
         </div>
         <div class="row mt-30">
             @{
-                int count = 0;
+                int count = 0;                
                 for (int i = 0; i < 4; ++i)
                 {
                     <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
@@ -147,7 +152,7 @@
                                 <div class="single-search-product d-flex">
                                     <a href="#"><img src="~/images/@listHH[count].Hinh" alt=""></a>
                                     <div class="desc">
-                                        <a href="#" class="title">@listHH[count].Tenhh</a>
+                                        <a href="/san-pham/@listHH[count].Tenalias" class="title">@listHH[count].Tenhh</a>
                                         <div class="price">@listHH[count].Dongia</div>
                                     </div>
                                 </div>
@@ -201,3 +206,112 @@
     $('#abc').hide();
 </script>
 
+<script>
+    $(document).ready(function () {
+        $("input[name='category']").on('click', function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": -1, "page": 1, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("input[name='brand']").on('click', function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": -1, "page": 1, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("#sort").change(function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+            var sort = $("#sort").val();
+            var page = $("#page").val();
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": sort, "page": page, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("#page").change(function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+            var sort = $("#sort").val();
+            var page = $("#page").val();
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": sort, "page": page, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        //$('#searchByName').keyup(function () {
+        //    $.ajax({
+        //        url: "/Home/Search",
+        //        data: { "tenhh": $('#searchByName').val() },
+        //        success: function (res) {
+        //            $(".ajax-search").html(res);
+        //        }
+        //    });
+        //});
+         $('#searchByName').keyup(function () {
+             var loai = -1;
+             var brand = -1;
+             if ($("input[name='category']:checked").val()) {
+                 loai = $("input[name='category']:checked").val();
+             }
+             if ($("input[name='brand']:checked").val()) {
+                 brand = $("input[name='brand']:checked").val();
+             }
+             var sort = $("#sort").val();
+             var page = $("#page").val();
+
+             $.ajax({
+                 url: "/Home/Search",
+                 data: {"tenhh": $('#searchByName').val() },
+                 success: function (res) {
+                     $(".ajax-search").html(res);
+                 }
+             });
+        });
+    });
+</script>

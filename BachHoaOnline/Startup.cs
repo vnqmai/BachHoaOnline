@@ -66,11 +66,11 @@ namespace BachHoaOnline
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "ChiTietHangHoa",
-                    template: "san-pham/{tenHHSEO}",
+                    template: "{loai}/{tenHHSEO}",
                      defaults: new
                      {
-                         controller = "SanPham",
-                         action = "SEOUrl"
+                         controller = "Home",
+                         action = "Details"
                      }
                 );
             });

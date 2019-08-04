@@ -1,0 +1,185 @@
+﻿@model IEnumerable<BachHoaOnline.Models.Hanghoa>
+@{
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Loai> listLoai = db.Loai.ToList();
+    int count = 0;
+}
+
+<!-- Start Filter Bar -->
+<div class="filter-bar d-flex flex-wrap align-items-center">
+    <div class="sorting">
+        <select id="sort">
+            <option value="-1">-</option>
+            <option value="1">Giá thấp - cao</option>
+            <option value="2">Giảm giá nhiều</option>
+        </select>
+    </div>
+    <div class="sorting mr-auto">
+        <select id="page">
+            @{
+                int npages = int.Parse(TempData["Npages"].ToString());
+                for (int i = 1; i <= npages; ++i)
+                {
+                    if (TempData["Page"] != null && i == int.Parse(TempData["Page"].ToString()))
+                    {
+                        <option value="@i" selected>Show page @i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">Show page @i</option>
+                    }
+                }
+            }
+
+        </select>
+    </div>
+    <div>
+        <div class="input-group filter-bar-search">
+            <input type="text" placeholder="Search" id="searchByName">
+            <div class="input-group-append">
+                <button type="button"><i class="ti-search"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Filter Bar -->
+<!-- Start Best Seller -->
+<section class="lattest-product-area pb-40 category-list ajax-search">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            if (count == 12)
+            {
+                break;
+            }
+            <div class="col-md-6 col-lg-4">
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="card-img" src="~/images/@item.Hinh" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li><button><i class="ti-search"></i></button></li>
+                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button><i class="ti-heart"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-product__title"><a href="/san-pham/@item.Tenalias">@item.Tenhh</a></h4>
+                        <p class="card-product__price">@item.Dongia</p>
+                    </div>
+                </div>
+            </div>
+            ++count;
+        }
+    </div>
+</section>
+<!-- End Best Seller -->
+
+<script>
+    $(document).ready(function () {
+        $("input[name='category']").on('click', function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": -1, "page": 1, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("input[name='brand']").on('click', function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": -1, "page": 1, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("#sort").change(function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+            var sort = $("#sort").val();
+            var page = $("#page").val();
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": sort, "page": page, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        $("#page").change(function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+            var sort = $("#sort").val();
+            var page = $("#page").val();
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": sort, "page": page, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-filter").html(res);
+                }
+            });
+        });
+        //$('#searchByName').keyup(function () {
+        //    $.ajax({
+        //        url: "/Home/Search",
+        //        data: { "tenhh": $('#searchByName').val() },
+        //        success: function (res) {
+        //            $(".ajax-search").html(res);
+        //        }
+        //    });
+        //});
+        $('#searchByName').keyup(function () {
+            var loai = -1;
+            var brand = -1;
+            if ($("input[name='category']:checked").val()) {
+                loai = $("input[name='category']:checked").val();
+            }
+            if ($("input[name='brand']:checked").val()) {
+                brand = $("input[name='brand']:checked").val();
+            }
+            var sort = $("#sort").val();
+            var page = $("#page").val();
+
+            $.ajax({
+                url: "/Home/ShopFilter",
+                data: { "loai": loai, "thuonghieu": brand, "sort": sort, "page": page, "search": $('#searchByName').val() },
+                success: function (res) {
+                    $(".ajax-search").html(res);
+                }
+            });
+        });
+    });
+</script>

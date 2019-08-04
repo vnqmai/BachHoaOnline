@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BachHoaOnline.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace BachHoaOnline.Helper
 {
     public class StaticClass
-    {
+    {        
         public static string ToURLFriendly(string tieuDe)
         {            
             string str = tieuDe.ToLower().Trim();
@@ -26,6 +27,6 @@ namespace BachHoaOnline.Helper
             //str = str.Substring(0, str.Length <= 30 ? str.Length : 30).Trim(); //Trim to max 30 char  
             str = Regex.Replace(str, @"\s", "-"); // Replaces spaces with hyphens     
             return str;
-        }
+        }        
     }
 }
