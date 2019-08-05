@@ -110,21 +110,22 @@
                                     <div class="card-product__img">
                                         <img class="card-img" src="~/images/@item.Hinh" alt="">
                                         <ul class="card-product__imgOverlay">
+                                            <span class="product-name" hidden><a>@item.Tenhh</a></span>
                                             <li><button><i class="ti-search"></i></button></li>
-                                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                                            <li><button class="add-to-cart"><i class="ti-shopping-cart"></i></button></li>
                                             <li><button><i class="ti-heart"></i></button></li>
-                                        </ul>
+                                        </ul>                                        
                                     </div>
                                     <div class="card-body">                 
                                         @{ 
                                             string loai = @db.Loai.SingleOrDefault(x => x.Maloai == item.Maloai).Tenloaialias;
                                         }
                                         <h4 class="card-product__title"><a href="san-pham/@loai/@item.Tenalias">@item.Tenhh</a></h4>
-                                        <p class="card-product__price">@item.Dongia</p>
+                                        <p class="card-product__price">@{float dg = (float)(item.Dongia - ( item.Dongia * item.Giamgia / 100));}@dg</p>
                                     </div>
                                 </div>
                             </div>
-                        }
+                                            }
                     </div>
                 </section>
                 <!-- End Best Seller -->
@@ -194,7 +195,6 @@
 
 
 <script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="~/vendors/skrollr.min.js"></script>
 <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
 <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>

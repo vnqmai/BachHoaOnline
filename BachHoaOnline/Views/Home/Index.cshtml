@@ -98,7 +98,7 @@
                                     <img src="~/images/@hanghoa[j].Hinh" alt="">
                                 </div>
                                 <div class="product-body">
-                                    <h3 class="product-price">@hanghoa[j].Dongia <del class="product-old-price">@{float giacu = (float)(hanghoa[j].Dongia + hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));} @giacu</del></h3>
+                                    <h3 class="product-price">@{float dg = (float)(hanghoa[j].Dongia - hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));}@dg<del class="product-old-price">@hanghoa[j].Dongia</del></h3>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -110,7 +110,7 @@
                                     <div class="product-btns">
                                         <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                         <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                        <a class="primary-btn add-to-cart" href="/add-to-cart/@hanghoa[j].Tenalias"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                        <a class="primary-btn add-to-cart" style="cursor: pointer"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
                                     </div>
                                 </div>
                                 <!-- /Product Single -->
@@ -154,7 +154,7 @@
                                 <img src="~/images/@hanghoa[j].Hinh" alt="">
                             </div>
                             <div class="product-body">
-                                <h3 class="product-price">@hanghoa[j].Dongia <del class="product-old-price">@{float giacu = (float)(hanghoa[j].Dongia + (float)hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));}@giacu</del></h3>
+                                <h3 class="product-price">@{float dg = (float)(hanghoa[j].Dongia - (float)hanghoa[j].Dongia * (hanghoa[j].Giamgia / 100));}@dg<del class="product-old-price">@hanghoa[j].Dongia</del></h3>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -166,7 +166,7 @@
                                 <div class="product-btns">
                                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                     <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <a class="primary-btn add-to-cart" href="/add-to-cart/@hanghoa[j].Tenalias"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                    <a class="primary-btn add-to-cart" style="cursor: pointer"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -179,3 +179,4 @@
     <!-- /container -->
 </div>
 <!-- /section -->
+

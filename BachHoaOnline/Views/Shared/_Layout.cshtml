@@ -1,7 +1,8 @@
-﻿@{ 
+﻿@{
     BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
     List<Loai> listLoai = db.Loai.Take(14).ToList();
 }
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +16,7 @@
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
 
     <!-- Bootstrap -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
@@ -92,10 +94,10 @@
                             <input class="input search-input" type="text" placeholder="Enter your keyword">
                             <select class="input search-categories">
                                 <option value="0">All Categories</option>
-                                @foreach(var l in listLoai)
-                                  {
-                                       <option value="@l.Maloai">@l.Tenloai</option>
-                                  }
+                                @foreach (var l in listLoai)
+                                {
+                                    <option value="@l.Maloai">@l.Tenloai</option>
+                                }
                             </select>
                             <button class="search-btn"><i class="fa fa-search"></i></button>
                         </form>
@@ -124,39 +126,42 @@
                         </li>
                         <!-- /Account -->
                         <!-- Cart -->
-                        <li class="header-cart dropdown default-dropdown">
+                        @{ 
+                            List<CartItem> listItem = HttpContextAccessor.HttpContext.Session.Get<List<CartItem>>("gioHang");
+                            float total = 0;
+                            float qty = 0;
+                        }
+                        <li class="header-cart dropdown default-dropdown" id="cartt">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <div class="header-btns-icon">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span class="qty">3</span>
+                                    <span class="qty" id="cart-count">@{if (listItem != null) { qty = listItem.Count(); } } @qty</span>
                                 </div>
                                 <strong class="text-uppercase">My Cart:</strong>
                                 <br>
-                                <span>35.20$</span>
+                                <span id="cart-total">@{if (listItem != null) { total = listItem.Sum(x => x.ThanhTien); }} @total</span>
                             </a>
                             <div class="custom-menu">
                                 <div id="shopping-cart">
                                     <div class="shopping-cart-list">
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                <img src="./img/thumb-product01.jpg" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                <img src="./img/thumb-product01.jpg" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
+                                        @{                                            
+                                            if (listItem != null)
+                                            {
+                                                foreach (var item in listItem)
+                                                {
+                                                    <div class="product product-widget">
+                                                        <div class="product-thumb">
+                                                            <img src="~/images/@item.Hinh" alt="">
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-price">@item.Dongia <span class="qty"> x @item.Soluong</span></h3>
+                                                            <h2 class="product-name"><a href="#">@item.Tensp</a></h2>
+                                                        </div>
+                                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                }
+                                            }
+                                        }
                                     </div>
                                     <div class="shopping-cart-btns">
                                         <button class="main-btn">View Cart</button>
@@ -326,7 +331,7 @@
         </div>
         <!-- /container -->
     </div>
-    <!-- /NAVIGATION -->    
+    <!-- /NAVIGATION -->
 
     <partial name="_CookieConsentPartial" />
 
@@ -459,6 +464,7 @@
     <script src="~/js/jquery.zoom.min.js"></script>
     <script src="~/js/main.js"></script>
 
+
     @RenderSection("Scripts", required: false)
 
 </body>
@@ -467,5 +473,76 @@
 <script>
     $('.category-header').on('click', function () {
         $('.category-list').toggle();
+    });
+    $('#cartt').click(function () {
+        if ($('#cartt').hasClass("open")) {
+            $('#cartt').removeClass("open");
+            $('#cartt').attr("aria-expanded", true);
+        }
+        else {
+            $('#cartt').addClass("open");
+            $('#cartt').attr("aria-expanded", false);
+        }
+    });
+</script>
+
+<script>
+    $(".add-to-cart").click(function () {
+        var tensp = $(this).parent().parent().find(".product-name").find("a").text();
+        var soluong = 1;
+        if ($('#sst').length > 0) {
+            soluong = $('#sst').val();
+        }
+        $.ajax({
+            url: "/Cart/AddToCart",
+            data: { "tenhh": tensp, "soluong": soluong },
+            success: function (cart) {
+                var htmlCartList = "";
+                total = 0;
+                count = 0;
+                $(cart).each(function (i, item) {
+                    htmlCartList += '<div class="product product-widget"><div class="product-thumb"><img src="images/' + item.hinh + '" alt=""></div>"';
+                    htmlCartList += '<div class="product-body"><h3 class="product-price">' + item.dongia + '<span class="qty"> x' + item.soluong + '</span></h3>';
+                    htmlCartList += '<h2 class="product-name"><a href="#">' + item.tensp + '</a></h2></div>';
+                    htmlCartList += '<button class="cancel-btn"><i class="fa fa-trash"></i></button></div>';
+
+                    total += parseInt(item.thanhTien);
+                    count += 1;
+                })
+                $('.shopping-cart-list').html(htmlCartList);
+                $('#cart-count').html(count);
+                $('#cart-total').html(total);
+
+                window.scrollTo(0,0);
+                $('#cartt').addClass("open");
+                $('#cartt').attr("aria-expanded", false);
+            }
+        });
+    });
+    $('.cancel-btn').click(function () {
+        var name = $(this).parent().find(".product-name").find('a').text();        
+        $.ajax({
+            url: "/Cart/RemoveCartItem",
+            data: { "itemName": name },
+            success: function (cart) {
+                var htmlCartList = "";
+                total = 0;
+                count = 0;
+                $(cart).each(function (i, item) {
+                    htmlCartList += '<div class="product product-widget"><div class="product-thumb"><img src="images/' + item.hinh + '" alt=""></div>"';
+                    htmlCartList += '<div class="product-body"><h3 class="product-price">' + item.dongia + '<span class="qty"> x' + item.soluong + '</span></h3>';
+                    htmlCartList += '<h2 class="product-name"><a href="#">' + item.tensp + '</a></h2></div>';
+                    htmlCartList += '<button class="cancel-btn"><i class="fa fa-trash"></i></button></div>';
+
+                    total += parseInt(item.thanhTien);
+                    count += 1;
+                })
+                $('.shopping-cart-list').html(htmlCartList);
+                $('#cart-count').html(count);
+                $('#cart-total').html(total);
+                if ($('#tbCart').length > 0)
+                    location.reload();
+            }
+        });
     });
 </script>

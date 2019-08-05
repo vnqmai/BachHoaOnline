@@ -28,8 +28,9 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
+                    <span class="product-name" hidden><a>@Model.Tenhh</a></span>
                     <h3>@Model.Tenhh</h3>
-                    <h2>@Model.Dongia</h2>
+                    <h2>@{float dg = (float)(Model.Dongia - (Model.Dongia * Model.Giamgia / 100));}@dg</h2>
                     <ul class="list">
                         <li><a class="active" href="#"><span>Category</span> : @Model.Maloai</a></li>
                     </ul>
@@ -43,11 +44,11 @@
                             <i class="ti-angle-left"></i>
                         </button>
                         <input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;"
                                 class="reduced items-count" type="button">
                             <i class="ti-angle-right"></i>
                         </button>
-                        <a class="button primary-btn" href="#">Thêm vào giỏ</a>
+                        <a class="button primary-btn add-to-cart" style="cursor:pointer">Thêm vào giỏ</a>
                     </div>
                     <div class="card_area d-flex align-items-center">
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -309,7 +310,6 @@
 
 
 <script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="~/vendors/skrollr.min.js"></script>
 <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
 <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>

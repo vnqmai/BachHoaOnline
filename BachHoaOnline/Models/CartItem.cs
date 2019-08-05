@@ -9,6 +9,7 @@ namespace BachHoaOnline.Models
     {
         public int Masp { get; set; }
         public string Tensp { get; set; }
+        public string Tenalias { get; set; }
         public float Dongia { get; set; }
         public float Giamgia { get; set; }
         public string Hinh { get; set; }

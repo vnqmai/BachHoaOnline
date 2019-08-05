@@ -1,0 +1,184 @@
+﻿@model IEnumerable<BachHoaOnline.Models.CartItem>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="~/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="~/vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="~/vendors/linericon/style.css">
+<link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/vendors/nouislider/nouislider.min.css">
+
+<link rel="stylesheet" href="~/vendors/css/style.css">
+
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table" id="tbCart">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ float subtotal = 0;}
+                        @foreach (var item in Model)
+                        {
+                            subtotal += item.ThanhTien;
+                            <tr class="Cart-item">
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="~/images/@item.Hinh" alt="">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="media-body">
+                                        <p>@item.Tensp</p>
+                                    </div>
+                                </td>
+                                <td class="Price">
+                                    <h5>@item.Dongia</h5>
+                                </td>
+                                <td class="_Qty">
+                                    <div class="product_count">
+                                        <input type="number" name="qty" id="@item.Masp" maxlength="12" value="@item.Soluong" title="Quantity:"
+                                               class="input-text qty">
+                                        <button onclick="var result = document.getElementById(@item.Masp.ToString()); var sst = result.value; if( !isNaN( @item.Masp.ToString() )) result.value++;return false;"
+                                                class="increase items-count" type="button">
+                                            <i class="lnr lnr-chevron-up"></i>
+                                        </button>
+                                        <button onclick="var result = document.getElementById(@item.Masp.ToString()); var sst = result.value; if( !isNaN( @item.Masp.ToString() ) && sst > 0 ) result.value--;return false;"
+                                                class="reduced items-count" type="button">
+                                            <i class="lnr lnr-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="PriceWithQty">
+                                    <h5>@item.ThanhTien</h5>
+                                </td>
+                            </tr>
+                        }
+                        <tr class="bottom_button">
+                            <td colspan="4">
+                                <a class="button" style="cursor:pointer" id="btn-update">Update Cart</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <h5>Subtotal</h5>
+                            </td>
+                            <td id="subtotal">
+                                <h5>@subtotal</h5>
+                            </td>
+                        </tr>
+                        <tr class="out_button_area">
+                            <td class="d-none-l"></td>
+                            <td class=""></td>
+                            <td></td>
+                            <td>
+                                <div class="checkout_btn_inner d-flex align-items-center">
+                                    <a class="gray_btn" href="/danh-muc-san-pham">Continue Shopping</a>
+                                    <a class="primary-btn ml-2" href="#">Proceed to checkout</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
+
+
+
+<script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="~/vendors/skrollr.min.js"></script>
+<script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="~/vendors/nouislider/nouislider.min.js"></script>
+<script src="~/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="~/vendors/mail-script.js"></script>
+<script src="~/vendors/js/main.js"></script>
+
+<script>
+    $('.category-list').hide();
+</script>
+
+
+<!--================Begin CHANGE QTY =================-->
+<script>
+    $('input[name="qty"]').change(function () {
+        var qty = parseInt($(this).parent().parent().find('input[name="qty"]').val());
+        var price = parseInt($(this).parent().parent().parent().find('.Price').find('h5').text());
+        $(this).parent().parent().parent().find('.PriceWithQty').find('h5').text(price * qty);
+
+        var subtotal = 0;
+        $('tbody').find('.Cart-item').each(function (i) {
+            subtotal += parseInt($(this).find('.PriceWithQty').find('h5').text());
+        });
+        $('#subtotal').find('h5').text(subtotal);
+    });
+    $('.increase').click(function () {
+        var qty = parseInt($(this).parent().parent().find('input[name="qty"]').val());
+        var price = parseInt($(this).parent().parent().parent().find('.Price').find('h5').text());
+        $(this).parent().parent().parent().find('.PriceWithQty').find('h5').text(price * qty);
+
+        var subtotal = 0;
+        $('tbody').find('.Cart-item').each(function (i) {
+            subtotal += parseInt($(this).find('.PriceWithQty').find('h5').text());
+        });
+        $('#subtotal').find('h5').text(subtotal);
+    });
+    $('.reduced').click(function () {
+        var qty = parseInt($(this).parent().parent().find('input[name="qty"]').val());
+        var price = parseInt($(this).parent().parent().parent().find('.Price').find('h5').text());
+        $(this).parent().parent().parent().find('.PriceWithQty').find('h5').text(price * qty);
+
+        var subtotal = 0;
+        $('tbody').find('.Cart-item').each(function (i) {
+            subtotal += parseInt($(this).find('.PriceWithQty').find('h5').text());
+        });
+        $('#subtotal').find('h5').text(subtotal);
+    });
+</script>
+<!--================End CHANGE QTY =================-->
+
+<!--================Begin UPDATE CART =================-->
+<script>
+    @{var gio = Json.Serialize(HttpContextAccessor.HttpContext.Session.Get<List<CartItem>>("gioHang"));}
+    $('#btn-update').click(function () {
+        var obj = @gio;        
+        $('tbody').find('.Cart-item').each(function (i) {
+            var qty = parseInt($(this).find('._Qty').find('.product_count').find('input[name="qty"]').val());
+            obj[i].soluong = qty;
+            obj[i].thanhTien = qty * obj[i].dongia;
+        });
+        $.ajax({
+            url: "/Cart/UpdateCart",
+            data: { "giohang": JSON.stringify(obj) },
+            success: function (res) {
+                if (res)
+                    location.reload();
+                else
+                    alert("Fail!");
+            }
+        });
+    });
+</script>
+<!--================End UPDATE CART =================-->

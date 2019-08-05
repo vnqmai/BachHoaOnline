@@ -69,12 +69,12 @@ namespace BachHoaOnline.Controllers
             float total = 0;
             foreach (var item in cart)
             {
-                total = item.Dongia * item.Soluong;
+                total += item.Dongia * item.Soluong;
                 itemList.Items.Add(new Item() {
                     Name = item.Tensp,
-                    Currency = "USD",
-                    Price = item.Dongia.ToString(),
+                    Currency = "USD",                    
                     Quantity = item.Soluong.ToString(),
+                    Price = item.Dongia.ToString(),
                     Sku = "sku",
                     Tax = "0"
                 });
@@ -85,7 +85,7 @@ namespace BachHoaOnline.Controllers
                 Transactions = new List<Transaction>()
                 {
                     new Transaction()
-                    {
+                    {                        
                         Amount = new Amount()
                         {
                             Total = total.ToString(),
