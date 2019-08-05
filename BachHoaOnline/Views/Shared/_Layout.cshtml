@@ -107,22 +107,44 @@
                 <div class="pull-right">
                     <ul class="header-btns">
                         <!-- Account -->
-                        <li class="header-account dropdown default-dropdown">
+                        <li class="header-account dropdown default-dropdown" id="accountt">
+                            @{ string user = HttpContextAccessor.HttpContext.Session.Get<string>("user");}
                             <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
                                 <div class="header-btns-icon">
                                     <i class="fa fa-user-o"></i>
                                 </div>
-                                <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                                @if (user != null)
+                                {
+                                    <strong class="text-uppercase">@user <i class="fa fa-caret-down"></i></strong>
+                                }
+                                else
+                                {
+                                    <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                                }
                             </div>
-                            <a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                            <ul class="custom-menu">
-                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                            </ul>
+                            @if (user == null)
+                            {
+                                <a href="/dang-nhap" class="text-uppercase">Login</a>
+                                <a href="/dang-ky" class="text-uppercase">Join</a>
+                            }
+                            else
+                            {
+                                <a href="/dang-xuat" class="text-uppercase">Logout</a>
+                            }
+                                <ul class="custom-menu">
+                                    @if (user != null)
+                                    {
+                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-user-o"></i> My Account</a></li>
+                                        <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-check"></i> Orders</a></li>
+                                        <li><a href="/dang-xuat"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/dang-nhap"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                        <li><a href="/dang-ky"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                                    }
+                                </ul>
                         </li>
                         <!-- /Account -->
                         <!-- Cart -->
@@ -482,6 +504,16 @@
         else {
             $('#cartt').addClass("open");
             $('#cartt').attr("aria-expanded", false);
+        }
+    });
+    $('#accountt').click(function () {
+        if ($('#accountt').hasClass("open")) {
+            $('#accountt').removeClass("open");
+            $('#accountt').attr("aria-expanded", true);
+        }
+        else {
+            $('#accountt').addClass("open");
+            $('#accountt').attr("aria-expanded", false);
         }
     });
 </script>
