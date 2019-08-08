@@ -1,0 +1,124 @@
+﻿@model BachHoaOnline.Models.Hanghoa
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@{
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Loai> listLoai = db.Loai.ToList();
+    List<Nhacungcap> listNCC = db.Nhacungcap.ToList();
+    List<Xuatxu> listXX = db.Xuatxu.ToList();
+    List<Thuonghieu> listTH = db.Thuonghieu.ToList();
+    List<Chitietloai> listCTL = db.Chitietloai.ToList();
+}
+
+<h2>Delete</h2>
+
+@if (ViewBag.status != null)
+{
+    <span>@ViewBag.status</span>
+    <a asp-action="Index">Back to List</a>
+}
+else
+{
+
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Hanghoa</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Tenhh)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tenhh)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tenalias)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tenalias)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Motadonvi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Motadonvi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Dongia)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Dongia)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Hinh)
+            </dt>
+            <dd>
+                <img src="~/images/@Model.Hinh" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ngaysx)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ngaysx)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Giamgia)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Giamgia)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Solanxem)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Solanxem)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Mota)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Mota)
+            </dd>
+            <dt>
+                Chi tiết loại
+            </dt>
+            <dd>
+                @listCTL.Where(x => x.Mactl == Model.Chitietloai).SingleOrDefault().Tenctl;
+            </dd>
+            <dt>
+                Loại sản phẩm
+            </dt>
+            <dd>
+                @listLoai.Where(x => x.Maloai == Model.Maloai).SingleOrDefault().Tenloai;
+            </dd>
+            <dt>
+                Nhà cung cấp
+            </dt>
+            <dd>
+                @listNCC.Where(x => x.Mancc == Model.Mancc).SingleOrDefault().Tenncc;
+            </dd>
+            <dt>
+                Thương hiệu
+            </dt>
+            <dd>
+                @listTH.Where(x => x.Math == Model.Math).SingleOrDefault().Tenth;
+            </dd>
+            <dt>
+                Xuất xứ
+            </dt>
+            <dd>
+                @listXX.Where(x => x.Maxx == Model.Maxx).SingleOrDefault().Tenxx;
+            </dd>
+        </dl>
+
+        <form asp-action="DoDelete">
+            <input type="hidden" asp-for="Mahh" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}

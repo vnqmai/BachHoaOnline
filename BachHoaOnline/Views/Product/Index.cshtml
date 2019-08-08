@@ -1,0 +1,111 @@
+﻿@model IEnumerable<BachHoaOnline.Models.Hanghoa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Loai> listLoai = db.Loai.ToList();
+    List<Nhacungcap> listNCC = db.Nhacungcap.ToList();
+    List<Xuatxu> listXX = db.Xuatxu.ToList();
+    List<Thuonghieu> listTH = db.Thuonghieu.ToList();
+    List<Chitietloai> listCTL = db.Chitietloai.ToList();
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tenhh)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dongia)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Hinh)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Giamgia)
+                        </th>                        
+                        <th>
+                            @Html.DisplayNameFor(model => model.Mota)
+                        </th>
+                        <th>
+                            Chi tiết loại                            
+                        </th>
+                        <th>
+                            Loại sản phẩm
+                        </th>
+                        <th>
+                            Nhà cung cấp
+                        </th>
+                        <th>
+                            Thương hiệu
+                        </th>
+                        <th>
+                            Xuất xứ
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tenhh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dongia)
+                        </td>
+                        <td>
+                            <img src="~/images/@item.Hinh" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Giamgia)
+                        </td>
+                        @if (item.Mota.Length > 200)
+                        {
+                            <td>@item.Mota.Substring(0, 200)</td>
+                        }
+                        else
+                        {
+                            <td>@item.Mota</td>
+                        }
+                        <td>
+                            @listCTL.Where(x => x.Mactl == item.Chitietloai).SingleOrDefault().Tenctl;
+                        </td>
+                        <td>
+                            @listLoai.Where(x => x.Maloai == item.Maloai).SingleOrDefault().Tenloai;
+                        </td>
+                        <td>
+                            @listNCC.Where(x => x.Mancc == item.Mancc).SingleOrDefault().Tenncc;
+                        </td>
+                        <td>
+                            @listTH.Where(x => x.Math == item.Math).SingleOrDefault().Tenth;
+                        </td>
+                        <td>
+                            @listXX.Where(x => x.Maxx == item.Maxx).SingleOrDefault().Tenxx;
+                        </td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.Mahh">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Mahh">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
