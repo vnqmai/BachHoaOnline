@@ -11,6 +11,7 @@
     {
         total += (float) (ct.Soluong * ct.Dongia);
     }
+    List<Hanghoa> listHH = db.Hanghoa.ToList();
 }
 
 <link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
@@ -39,7 +40,7 @@
                         </tr>
                         <tr>
                             <td>Date</td>
-                            <td>: @Model.Ngaydat</td>
+                            <td>: @Model.Ngaydat.ToString()</td>
                         </tr>
                         <tr>
                             <td>Total</td>
@@ -84,13 +85,14 @@
                         {
                             <tr>
                                 <td>
-                                    <p>@ct.Mahh</p>
+                                    <p>@listHH.Where(x=>x.Mahh==ct.Mahh).SingleOrDefault().Tenhh</p>
                                 </td>
                                 <td>
                                     <h5>@ct.Soluong</h5>
                                 </td>
                                 <td>
-                                    <p>@ct.Soluong*@ct.Dongia</p>
+                                    @{ float thanhtien = (float)(ct.Soluong * ct.Dongia);}
+                                    <p>@thanhtien VNĐ</p>
                                 </td>
                             </tr>
                         }

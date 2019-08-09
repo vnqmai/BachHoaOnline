@@ -26,6 +26,7 @@ namespace BachHoaOnline.Controllers
             }
         }
 
+        [Route("gio-hang")]
         public IActionResult Index()
         {
             return View(Carts);
