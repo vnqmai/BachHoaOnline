@@ -3,6 +3,21 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Hoadon> listHD = db.Hoadon.Where(x => x.Makh == Model.Makh).ToList();
+    List<Hanghoa> listHH = db.Hanghoa.ToList();
+}
+<link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="~/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="~/vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="~/vendors/linericon/style.css">
+<link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/vendors/nouislider/nouislider.min.css">
+
+<link rel="stylesheet" href="~/vendors/css/style.css">
 <br />
 <div class="row">
     <div class="col-md-4">
@@ -55,6 +70,60 @@
     </div>
     <div class="col-md-8">
         <h4>Hóa đơn</h4>
+        @foreach (var hd in listHD)
+        {
+            List<Chitiethoadon> listCT = db.Chitiethoadon.Where(x => x.Mahd == hd.Mahd).ToList();
+
+            <div class="order_details_table">
+                <table class="order-rable">
+                    <tr>
+                        <td>Order number</td>
+                        <td>: @hd.Mahd</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>: @hd.Ngaydat.ToString()</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>: @listCT.Sum(x => x.Dongia * x.Soluong) VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Payment method</td>
+                        <td>: @hd.Cachthanhtoan</td>
+                    </tr>
+                </table>
+                <hr />
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in listCT)
+                            {
+                                <tr>
+                                    <td>
+                                        <p>@listHH.Where(x => x.Mahh == ct.Mahh).SingleOrDefault().Tenhh</p>
+                                    </td>
+                                    <td>
+                                        <h5>@ct.Soluong</h5>
+                                    </td>
+                                    <td>
+                                        @{ float thanhtien = (float)(ct.Soluong * ct.Dongia);}
+                                        <p>@thanhtien VNĐ</p>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
         <hr />
     </div>
 </div>
@@ -63,3 +132,12 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="~/vendors/skrollr.min.js"></script>
+<script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="~/vendors/nouislider/nouislider.min.js"></script>
+<script src="~/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="~/vendors/mail-script.js"></script>
+<script src="~/vendors/js/main.js"></script>    

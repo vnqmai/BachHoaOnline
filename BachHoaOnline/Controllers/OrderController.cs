@@ -21,8 +21,17 @@ namespace BachHoaOnline.Controllers
             return View(db.Hoadon.Where(x=>x.Mahd == id).SingleOrDefault());
         }
 
-        public IActionResult DoUpdate()
+        public IActionResult DoUpdate(Hoadon hd)
         {
+            Hoadon des = db.Hoadon.Where(x => x.Mahd == hd.Mahd).SingleOrDefault();
+            des.Hoten = hd.Hoten;
+            des.Diachi = hd.Diachi;
+            des.Ngaygiao = hd.Ngaygiao;
+            des.Matrangthai = hd.Matrangthai;
+            des.Cachthanhtoan = hd.Cachthanhtoan;
+            des.Ghichu = hd.Ghichu;
+            db.SaveChanges();
+            ViewBag.status = "Cập nhật thành công.";
             return View("Update");
         }
 
@@ -31,8 +40,16 @@ namespace BachHoaOnline.Controllers
             return View(db.Hoadon.Where(x => x.Mahd == id).SingleOrDefault());
         }
 
-        public IActionResult DoDelete()
+        public IActionResult DoDelete(Hoadon hd)
         {
+            List<Chitiethoadon>cthd = db.Chitiethoadon.Where(x => x.Mahd == hd.Mahd).ToList();
+            foreach (Chitiethoadon ct in cthd)
+            {
+                db.Chitiethoadon.Remove(ct);
+            }
+            db.Hoadon.Remove(db.Hoadon.Where(x => x.Mahd == hd.Mahd).SingleOrDefault());
+            db.SaveChanges();
+            ViewBag.status = "Đã xóa thành công.";
             return View("Delete");
         }
     }

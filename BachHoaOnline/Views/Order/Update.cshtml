@@ -1,0 +1,69 @@
+﻿@model BachHoaOnline.Models.Hoadon
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+@{ 
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    List<Trangthai> listTT = db.Trangthai.ToList();
+}
+<h2>Update</h2>
+
+<h4>Hoadon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DoUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Mahd" />
+            <div class="form-group">
+                <label asp-for="Hoten" class="control-label"></label>
+                <input asp-for="Hoten" class="form-control" />
+                <span asp-validation-for="Hoten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Diachi" class="control-label"></label>
+                <input asp-for="Diachi" class="form-control" />
+                <span asp-validation-for="Diachi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ngaygiao" class="control-label"></label>
+                <input asp-for="Ngaygiao" class="form-control" />
+                <span asp-validation-for="Ngaygiao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cachthanhtoan" class="control-label"></label>
+                <input asp-for="Cachthanhtoan" class="form-control" />
+                <span asp-validation-for="Cachthanhtoan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Matrangthai" class="control-label"></label>
+                <select asp-for="Matrangthai" class="form-control" asp-items="ViewBag.Matrangthai">
+                    @foreach (var tt in listTT)
+                    {
+                        <option value="@tt.Matrangthai">@tt.Tentrangthai</option>
+                    }
+                </select>foreach
+                <span asp-validation-for="Matrangthai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ghichu" class="control-label"></label>
+                <input asp-for="Ghichu" class="form-control" />
+                <span asp-validation-for="Ghichu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+        @if (ViewBag.status != null)
+        {
+            <span>@ViewBag.status</span>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

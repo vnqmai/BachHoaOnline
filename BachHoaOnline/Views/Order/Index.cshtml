@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BachHoaOnline.Models.Hoadon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{ 
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hoten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diachi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngaydat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngaygiao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cachthanhtoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cachvanchuyen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phivanchuyen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MakhNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatrangthaiNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hoten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diachi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaydat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaygiao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cachthanhtoan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cachvanchuyen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phivanchuyen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ghichu)
+            </td>
+            <td>
+                @db.Khachhang.Where(x=>x.Makh==item.Makh).SingleOrDefault().Hoten
+            </td>
+            <td>
+                @db.Trangthai.Where(x => x.Matrangthai == item.Matrangthai).SingleOrDefault().Tentrangthai
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@item.Mahd">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Mahd">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
