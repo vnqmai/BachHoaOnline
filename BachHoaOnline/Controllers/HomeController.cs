@@ -34,9 +34,12 @@ namespace BachHoaOnline.Controllers
         }
 
         [Route("danh-muc-san-pham")]
-        public IActionResult Shop()
+        public IActionResult Shop(int? loai)
         {
-            return View(db.Hanghoa.ToList());
+            if (loai==null)
+                return View(db.Hanghoa.ToList());
+            else
+                return View(db.Hanghoa.Where(x=>x.Maloai==loai).ToList());
         }
 
         

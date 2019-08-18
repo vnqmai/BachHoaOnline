@@ -45,38 +45,6 @@
 <body>
     <!-- HEADER -->
     <header>
-        <!-- top Header -->
-        <div id="top-header">
-            <div class="container">
-                <div class="pull-left">
-                    <span>Welcome to E-shop!</span>
-                </div>
-                <div class="pull-right">
-                    <ul class="header-top-links">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li class="dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i class="fa fa-caret-down"></i></a>
-                            <ul class="custom-menu">
-                                <li><a href="#">English (ENG)</a></li>
-                                <li><a href="#">Russian (Ru)</a></li>
-                                <li><a href="#">French (FR)</a></li>
-                                <li><a href="#">Spanish (Es)</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i class="fa fa-caret-down"></i></a>
-                            <ul class="custom-menu">
-                                <li><a href="#">USD ($)</a></li>
-                                <li><a href="#">EUR (€)</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /top Header -->
         <!-- header -->
         <div id="header">
             <div class="container">
@@ -84,25 +52,10 @@
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="#">
-                            <img src="./img/logo.png" alt="">
+                            Bách Hóa Online
                         </a>
                     </div>
                     <!-- /Logo -->
-                    <!-- Search -->
-                    <div class="header-search">
-                        <form>
-                            <input class="input search-input" type="text" placeholder="Enter your keyword">
-                            <select class="input search-categories">
-                                <option value="0">All Categories</option>
-                                @foreach (var l in listLoai)
-                                {
-                                    <option value="@l.Maloai">@l.Tenloai</option>
-                                }
-                            </select>
-                            <button class="search-btn"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                    <!-- /Search -->
                 </div>
                 <div class="pull-right">
                     <ul class="header-btns">
@@ -119,30 +72,30 @@
                                 }
                                 else
                                 {
-                                    <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                                    <strong class="text-uppercase">Tài khoản của tôi<i class="fa fa-caret-down"></i></strong>
                                 }
                             </div>
                             @if (user == null)
                             {
-                                <a href="/dang-nhap" class="text-uppercase">Login</a>
-                                <a href="/dang-ky" class="text-uppercase">Join</a>
+                                <a href="/dang-nhap" class="text-uppercase">Đăng nhập</a>
+                                <a href="/dang-ky" class="text-uppercase">Đăng ký</a>
                             }
                             else
                             {
-                                <a href="/dang-xuat" class="text-uppercase">Logout</a>
+                                <a href="/dang-xuat" class="text-uppercase">Đăng xuất</a>
                             }
                                 <ul class="custom-menu">
                                     @if (user != null)
                                     {
-                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-user-o"></i> My Account</a></li>
+                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-user-o"></i> Thông tin tài khoản</a></li>
                                         <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-check"></i> Orders</a></li>
-                                        <li><a href="/dang-xuat"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-check"></i> Lịch sử mua hàng</a></li>
+                                        <li><a href="/dang-xuat"><i class="fa fa-unlock-alt"></i> Đăng xuất</a></li>
                                     }
                                     else
                                     {
-                                        <li><a href="/dang-nhap"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                        <li><a href="/dang-ky"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                                        <li><a href="/dang-nhap"><i class="fa fa-unlock-alt"></i> Đăng nhập</a></li>
+                                        <li><a href="/dang-ky"><i class="fa fa-user-plus"></i> Đăng ký</a></li>
                                     }
                                 </ul>
                         </li>
@@ -159,7 +112,7 @@
                                     <i class="fa fa-shopping-cart"></i>
                                     <span class="qty" id="cart-count">@{if (listItem != null) { qty = listItem.Count(); } } @qty</span>
                                 </div>
-                                <strong class="text-uppercase">My Cart:</strong>
+                                <strong class="text-uppercase">Giỏ hàng:</strong>
                                 <br>
                                 <span id="cart-total">@{if (listItem != null) { total = listItem.Sum(x => x.ThanhTien); }} @total</span>
                             </a>
@@ -186,8 +139,8 @@
                                         }
                                     </div>
                                     <div class="shopping-cart-btns">
-                                        <a href="/gio-hang" class="main-btn">View Cart</a>
-                                        <a href="/thanh-toan" class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="/gio-hang" class="main-btn">Xem giỏ hàng</a>
+                                        <a href="/thanh-toan" class="primary-btn">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -213,68 +166,11 @@
             <div id="responsive-nav">
                 <!-- category nav -->
                 <div class="category-nav">
-                    <span class="category-header">Categories <i class="fa fa-list"></i></span>
+                    <span class="category-header">Danh mục sản phẩm <i class="fa fa-list"></i></span>
                     <ul class="category-list" id="abc">
-                        <li class="dropdown side-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i class="fa fa-angle-right"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row hidden-sm hidden-xs">
-                                    <div class="col-md-12">
-                                        <hr>
-                                        <a class="banner banner-1" href="#">
-                                            <img src="./img/banner05.jpg" alt="">
-                                            <div class="banner-caption text-center">
-                                                <h2 class="white-color">NEW COLLECTION</h2>
-                                                <h3 class="white-color font-weak">HOT DEAL</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                         @foreach (var l in listLoai)
                         {
-                            <li><a href="#">@l.Tenloai</a></li>
+                            <li><a href="@Url.Action("Shop","Home",l.Maloai)">@l.Tenloai</a></li>
                         }
                     </ul>
                 </div>
@@ -283,69 +179,10 @@
                 <div class="menu-nav">
                     <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                     <ul class="menu-list">
-                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
-                        <li><a href="@Url.Action("Shop","Home")">Shop</a></li>
-                        <li class="dropdown mega-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3>
-                                            </li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row hidden-sm hidden-xs">
-                                    <div class="col-md-12">
-                                        <hr>
-                                        <a class="banner banner-1" href="#">
-                                            <img src="./img/banner05.jpg" alt="">
-                                            <div class="banner-caption text-center">
-                                                <h2 class="white-color">NEW COLLECTION</h2>
-                                                <h3 class="white-color font-weak">HOT DEAL</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        @foreach (var l in listLoai.Take(4))
-                        {
-                            <li><a href="#">@l.Tenloai</a></li>
-                        }
+                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                        <li><a href="@Url.Action("Shop","Home")">Sản phẩm</a></li>
+                        <li><a href="@Url.Action("Index","Cart")">Giỏ hàng</a></li>
+                        <li><a href="@Url.Action("Index","CheckOut")">Thanh toán</a></li>
                     </ul>
                 </div>
                 <!-- menu nav -->
@@ -368,17 +205,17 @@
             <!-- row -->
             <div class="row">
                 <!-- footer widget -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="col-md-4 col-sm-6 col-xs-6">
                     <div class="footer">
                         <!-- footer logo -->
                         <div class="footer-logo">
                             <a class="logo" href="#">
-                                <img src="./img/logo.png" alt="">
+                                Bách Hóa Online
                             </a>
                         </div>
                         <!-- /footer logo -->
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                        <p>Bách hóa online sản phẩm chính hãng, thông minh, tiện ích, ưu đãi mỗi ngày. Mua online tại Bách Hóa Online phù hợp giới tính. Với thiết kế đơn giản nhưng không thiếu đi sự tinh tế sẽ giúp bạn tìm được sản phẩm phù hợp với gia đình.</p>
 
                         <!-- footer social -->
                         <ul class="footer-social">
@@ -393,15 +230,22 @@
                 </div>
                 <!-- /footer widget -->
                 <!-- footer widget -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="col-md-4 col-sm-6 col-xs-6">
                     <div class="footer">
-                        <h3 class="footer-header">My Account</h3>
+                        <h3 class="footer-header">Tài khoản</h3>
                         <ul class="list-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Compare</a></li>
-                            <li><a href="#">Checkout</a></li>
-                            <li><a href="#">Login</a></li>
+                            @if (user != null)
+                            {
+                                <li><a href="/thong-tin-ca-nhan">Thông tin tài khoản</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="/thong-tin-ca-nhan">Lịch sử đặt hàng</a></li>
+                                <li><a href="/dang-xuat">Đăng xuất</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/dang-nhap">Đăng nhập</a></li>
+                                <li><a href="/dang-ky">Đăng ký</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -409,29 +253,16 @@
 
                 <div class="clearfix visible-sm visible-xs"></div>
 
-                <!-- footer widget -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-header">Customer Service</h3>
-                        <ul class="list-links">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Shiping & Return</a></li>
-                            <li><a href="#">Shiping Guide</a></li>
-                            <li><a href="#">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /footer widget -->
                 <!-- footer subscribe -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="col-md-4 col-sm-6 col-xs-6">
                     <div class="footer">
-                        <h3 class="footer-header">Stay Connected</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                        <h3 class="footer-header">Đăng ký nhận tin</h3>
+                        <p>Đăng ký để được nhận thong tin sản phẩm mới nhất từ Bách Hóa Online.</p>
                         <form>
                             <div class="form-group">
-                                <input class="input" placeholder="Enter Email Address">
+                                <input class="input" placeholder="Nhập email">
                             </div>
-                            <button class="primary-btn">Join Newslatter</button>
+                            <button class="primary-btn">Đăng ký</button>
                         </form>
                     </div>
                 </div>
