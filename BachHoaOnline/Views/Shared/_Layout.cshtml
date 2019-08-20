@@ -84,24 +84,24 @@
                             {
                                 <a href="/dang-xuat" class="text-uppercase">Đăng xuất</a>
                             }
-                                <ul class="custom-menu">
-                                    @if (user != null)
-                                    {
-                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-user-o"></i> Thông tin tài khoản</a></li>
-                                        <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                        <li><a href="/thong-tin-ca-nhan"><i class="fa fa-check"></i> Lịch sử mua hàng</a></li>
-                                        <li><a href="/dang-xuat"><i class="fa fa-unlock-alt"></i> Đăng xuất</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="/dang-nhap"><i class="fa fa-unlock-alt"></i> Đăng nhập</a></li>
-                                        <li><a href="/dang-ky"><i class="fa fa-user-plus"></i> Đăng ký</a></li>
-                                    }
-                                </ul>
+                            <ul class="custom-menu">
+                                @if (user != null)
+                                {
+                                    <li><a href="/thong-tin-ca-nhan"><i class="fa fa-user-o"></i> Thông tin tài khoản</a></li>
+                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                    <li><a href="/thong-tin-ca-nhan"><i class="fa fa-check"></i> Lịch sử mua hàng</a></li>
+                                    <li><a href="/dang-xuat"><i class="fa fa-unlock-alt"></i> Đăng xuất</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/dang-nhap"><i class="fa fa-unlock-alt"></i> Đăng nhập</a></li>
+                                    <li><a href="/dang-ky"><i class="fa fa-user-plus"></i> Đăng ký</a></li>
+                                }
+                            </ul>
                         </li>
                         <!-- /Account -->
                         <!-- Cart -->
-                        @{ 
+                        @{
                             List<CartItem> listItem = HttpContextAccessor.HttpContext.Session.Get<List<CartItem>>("gioHang");
                             float total = 0;
                             float qty = 0;
@@ -119,7 +119,7 @@
                             <div class="custom-menu">
                                 <div id="shopping-cart">
                                     <div class="shopping-cart-list">
-                                        @{                                            
+                                        @{
                                             if (listItem != null)
                                             {
                                                 foreach (var item in listItem)
@@ -376,14 +376,14 @@
                 $('#cart-count').html(count);
                 $('#cart-total').html(total);
 
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
                 $('#cartt').addClass("open");
                 $('#cartt').attr("aria-expanded", false);
             }
         });
     });
     $('.cancel-btn').click(function () {
-        var name = $(this).parent().find(".product-name").find('a').text();        
+        var name = $(this).parent().find(".product-name").find('a').text();
         $.ajax({
             url: "/Cart/RemoveCartItem",
             data: { "itemName": name },
@@ -409,3 +409,19 @@
         });
     });
 </script>
+
+<!-- Subiz -->
+<script>
+    (function (s, u, b, i, z) {
+        u[i] = u[i] || function () {
+            u[i].t = +new Date();
+            (u[i].q = u[i].q || []).push(arguments);
+        };
+        z = s.createElement('script');
+        var zz = s.getElementsByTagName('script')[0];
+        z.async = 1; z.src = b; z.id = 'subiz-script';
+        zz.parentNode.insertBefore(z, zz);
+    })(document, window, 'https://widgetv4.subiz.com/static/js/app.js', 'subiz');
+    subiz('setAccount', 'acqktlssarhuxcthttib');
+</script>
+<!-- End Subiz -->
