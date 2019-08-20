@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "CheckOut";
 }
-@{ 
+@{
     BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
-    List<Chitiethoadon> listCT = db.Chitiethoadon.Where(x=>x.Mahd==Model.Mahd).ToList();
+    List<Chitiethoadon> listCT = db.Chitiethoadon.Where(x => x.Mahd == Model.Mahd).ToList();
     float total = 0;
     foreach (var ct in listCT)
     {
-        total += (float) (ct.Soluong * ct.Dongia);
+        total += (float)(ct.Soluong * ct.Dongia);
     }
     List<Hanghoa> listHH = db.Hanghoa.ToList();
 }
@@ -25,84 +25,91 @@
 
 <link rel="stylesheet" href="~/vendors/css/style.css">
 
-<!--================Order Details Area =================-->
-<section class="order_details section-margin--small">
-    <div class="container">
-        <p class="text-center billing-alert">Thank you. Your order has been received.</p>
-        <div class="row mb-5">
-            <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
-                <div class="confirmation-card">
-                    <h3 class="billing-title">Order Info</h3>
-                    <table class="order-rable">
-                        <tr>
-                            <td>Order number</td>
-                            <td>: @Model.Mahd</td>
-                        </tr>
-                        <tr>
-                            <td>Date</td>
-                            <td>: @Model.Ngaydat.ToString()</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>: @total VNĐ</td>
-                        </tr>
-                        <tr>
-                            <td>Payment method</td>
-                            <td>: @Model.Cachthanhtoan</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
-                <div class="confirmation-card">
-                    <h3 class="billing-title">Billing Address</h3>
-                    <table class="order-rable">
-                        <tr>
-                            <td>Name</td>
-                            <td>: @Model.Hoten</td>
-                        </tr>
-                        <tr>
-                            <td>Street</td>
-                            <td>: @Model.Diachi</td>
-                        </tr>                        
-                    </table>
-                </div>
-            </div>            
-        </div>
-        <div class="order_details_table">
-            <h2>Order Details</h2>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var ct in listCT)
-                        {
+@if (Model != null)
+{
+    <!--================Order Details Area =================-->
+    <section class="order_details section-margin--small">
+        <div class="container">
+            <p class="text-center billing-alert">Cảm ơn quý khách đã đặt hàng. Đơn hàng của quý khách đã được ghi nhận.</p>
+            <div class="row mb-5">
+                <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
+                    <div class="confirmation-card">
+                        <h3 class="billing-title">Thông tin hóa đơn</h3>
+                        <table class="order-rable">
                             <tr>
-                                <td>
-                                    <p>@listHH.Where(x=>x.Mahh==ct.Mahh).SingleOrDefault().Tenhh</p>
-                                </td>
-                                <td>
-                                    <h5>@ct.Soluong</h5>
-                                </td>
-                                <td>
-                                    @{ float thanhtien = (float)(ct.Soluong * ct.Dongia);}
-                                    <p>@thanhtien VNĐ</p>
-                                </td>
+                                <td>Mã hóa đơn</td>
+                                <td>: @Model.Mahd</td>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                            <tr>
+                                <td>Ngày đặt</td>
+                                <td>: @Model.Ngaydat.ToString()</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng hóa đơn</td>
+                                <td>: @total VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>Phương thức thanh toán</td>
+                                <td>: @Model.Cachthanhtoan</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-6 mb-6 mb-xl-0">
+                    <div class="confirmation-card">
+                        <h3 class="billing-title">Địa chỉ</h3>
+                        <table class="order-rable">
+                            <tr>
+                                <td>Tên khách hàng</td>
+                                <td>: @Model.Hoten</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ</td>
+                                <td>: @Model.Diachi</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="order_details_table">
+                <h2>Chi tiết hóa đơn</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sản phẩm</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in listCT)
+                            {
+                                <tr>
+                                    <td>
+                                        <p>@listHH.Where(x => x.Mahh == ct.Mahh).SingleOrDefault().Tenhh</p>
+                                    </td>
+                                    <td>
+                                        <h5>@ct.Soluong</h5>
+                                    </td>
+                                    <td>
+                                        @{ float thanhtien = (float)(ct.Soluong * ct.Dongia);}
+                                        <p>@thanhtien VNĐ</p>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!--================End Order Details Area =================-->
+    </section>
+    <!--================End Order Details Area =================-->
+}
+else
+{
+    <p class="text-center billing-alert">Thanh toán thất bại. Vui lòng kiểm tra lại thông tin.</p>
+}
 
 
 

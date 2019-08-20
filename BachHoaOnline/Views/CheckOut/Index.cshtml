@@ -106,10 +106,13 @@
                             <ul class="list list_2">
                                 <li><a href="#">Tổng cộng <span>@total</span></a></li>
                             </ul>
-                           
-                            <div class="text-center">
-                                <a class="button button-paypal" href="@Url.Action("Paypal_Checkout","CheckOut")">Thanh toán với Paypal</a>
-                            </div>
+
+                            @if (email != null)
+                            {
+                                <div class="text-center">
+                                    <a class="button button-paypal" href="@Url.Action("Paypal_Checkout","CheckOut")">Thanh toán với Paypal</a>
+                                </div>
+                            }
                         </div>
                     </div>
                 }

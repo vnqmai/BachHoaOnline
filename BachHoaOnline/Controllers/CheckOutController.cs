@@ -102,8 +102,8 @@ namespace BachHoaOnline.Controllers
                 },
                 RedirectUrls = new RedirectUrls()
                 {
-                    CancelUrl = "/CheckOut/Paypal_Error",
-                    ReturnUrl = "/CheckOut/Paypal_Success"
+                    CancelUrl = "https://localhost:44373/CheckOut/Paypal_Error",
+                    ReturnUrl = "https://localhost:44373/CheckOut/Paypal_Success"
                 },
                 Payer = new Payer()
                 {
@@ -146,12 +146,22 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Paypal_Success()
         {
-            return Content("Thanh toán thành công.");
+            Khachhang kh = db.Khachhang.Where(x => x.Email == HttpContext.Session.Get<string>("user")).SingleOrDefault();
+            Hoadon hd = new Hoadon {
+                Ngaydat = DateTime.Now,
+                Ngaygiao = DateTime.Now.AddDays(7),
+                Cachthanhtoan = "Paypal"
+            };
+            hd.Makh = kh.Makh;
+            hd.Matrangthai = 1;
+
+            return DoCheckOut(hd);
         }
 
         public IActionResult Paypal_Error()
         {
-            return Content("Thanh toán thất bại.");
+            return View("CheckOut", null);
+            //return Content("Thanh toán thất bại.");
         }
         //int makh, DateTime ngaydat, DateTime ngaygiao,string hoten, string diachi, string cthanhtoan, string cvanchuyen, double pvanchuyen, int matt, string ghichu        
     }
