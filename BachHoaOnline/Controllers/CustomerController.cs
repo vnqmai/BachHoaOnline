@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BachHoaOnline.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BachHoaOnline.Controllers
 {
@@ -86,6 +87,16 @@ namespace BachHoaOnline.Controllers
         {
             HttpContext.Session.Remove("user");
             return RedirectToAction("Login");
+        }
+
+        public IActionResult Review(string nhanxet)
+        {
+            Nhanxet review = JsonConvert.DeserializeObject<Nhanxet>(nhanxet);
+            review.Ngaygui = DateTime.Now;
+            db.Nhanxet.Add(review);
+            db.SaveChanges();
+
+            return Content("ok");
         }
     }
 }

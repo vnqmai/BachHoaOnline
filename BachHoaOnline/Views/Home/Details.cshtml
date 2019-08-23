@@ -1,4 +1,5 @@
 ﻿@model BachHoaOnline.Models.Hanghoa
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 @{
     ViewData["Title"] = "Details";
@@ -14,17 +15,18 @@
 
 <link rel="stylesheet" href="~/vendors/css/style.css">
 
+<meta property="og:url" content="https://@Context.Request.Host@Context.Request.Path" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="@Model.Tenhh" />
+<meta property="og:description" content="@Model.Mota" />
+<meta property="og:image" content="https://@Context.Request.Host/images/@Model.Hinh" />
 
 <!--================Single Product Area =================-->
 <div class="product_image_area">
     <div class="container">
         <div class="row s_product_inner">
-            <div class="col-lg-6">
-                <div class="owl-carousel owl-theme s_Product_carousel">
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="~/images/@Model.Hinh" alt="">
-                    </div>
-                </div>
+            <div class="col-lg-6" style="text-align:center;">
+                <img class="img-fluid" src="~/images/@Model.Hinh" alt="" style="width:150%;">
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
@@ -34,6 +36,11 @@
                     <ul class="list">
                         <li><a class="active" href="#"><span>Category</span> : @Model.Maloai</a></li>
                     </ul>
+                    <div id="fb-root"></div>
+                    <div class="fb-share-button"
+                         data-href="https://@Context.Request.Host@Context.Request.Path"
+                         data-layout="button_count">
+                    </div>
                     <p>
                         @Model.Mota
                     </p>
@@ -65,240 +72,156 @@
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                   aria-selected="false">Comments</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link active show" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
                    aria-selected="true">Reviews</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="comment_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-1.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item reply">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="review_box">
-                            <h4>Post a comment</h4>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @{
+                BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+                List<Nhanxet> liNhanXet = db.Nhanxet.Where(x => x.Mahh == Model.Mahh).ToList();
+            }
             <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="row total_rate">
+                            @{
+                                int rating = 0;
+                                if (liNhanXet != null && liNhanXet.Count != 0)
+                                {
+                                    rating = (int)Math.Ceiling((decimal)liNhanXet.Average(x => x.Rating));
+                                }
+                            }
                             <div class="col-6">
                                 <div class="box_total">
                                     <h5>Overall</h5>
-                                    <h4>4.0</h4>
-                                    <h6>(03 Reviews)</h6>
+                                    @if (liNhanXet != null)
+                                    {
+                                        <h4>@rating</h4>
+                                        <h6>(@liNhanXet.Count Reviews)</h6>
+                                    }
+                                    else
+                                    {
+                                        <h4>0</h4>
+                                        <h6>(0 Reviews)</h6>
+                                    }
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="rating_list">
-                                    <h3>Based on 3 Reviews</h3>
-                                    <ul class="list">
-                                        <li>
-                                            <a href="#">
-                                                5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    @if (liNhanXet != null)
+                                    {
+                                        <h3>Based on @liNhanXet.Count Reviews</h3>
+                                        <ul class="list">
+                                            <li>
+                                                <a href="#">
+                                                    @rating Star
+                                                    @for (int i = 0; i < rating; ++i)
+                                                    {
+                                                        <i class="fa fa-star"></i>
+                                                    }
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    }
+
+
                                 </div>
                             </div>
                         </div>
                         <div class="review_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-1.png" alt="">
+                            @if (liNhanXet != null)
+                            {
+                                foreach (var nx in liNhanXet)
+                                {
+                                    Khachhang kh = db.Khachhang.Where(x => x.Makh == nx.Makh).SingleOrDefault();
+                                    List<Hotro> liHoTro = db.Hotro.Where(x => x.Manx == nx.Manx).ToList();
+                                    <div class="review_item">
+                                        <div class="media">
+                                            <div class="d-flex" style="width: 70px; height: 70px; background-color:darkgrey; margin: 10px 10px;">
+
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>@kh.Hoten</h4>
+                                                <h5>@nx.Ngaygui</h5>
+                                                <a class="reply_btn" href="#">Tra loi</a>
+                                                @for (int i = 0; i < nx.Rating; ++i)
+                                                {
+                                                    <i class="fa fa-star"></i>
+                                                }
+                                            </div>
+                                        </div>                                      
+                                        <p>
+                                            @nx.Noidung
+                                        </p>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
+                                    @if (liHoTro != null)
+                                    {
+                                        foreach (var ht in liHoTro)
+                                        {
+                                            Nhanvien nv = db.Nhanvien.Where(x => x.Manv == ht.Manv).SingleOrDefault();
+                                            <div class="review_item reply">
+                                                <div class="media">
+                                                    <div class="d-flex">
+                                                        <img src="img/product/review-2.png" alt="">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4>@nv.Hoten</h4>
+                                                        <h5>@ht.Ngaygui</h5>
+                                                        <a class="reply_btn" href="#">Reply</a>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    @ht.Noidung
+                                                </p>
+                                            </div>
+                                        }
+
+                                    }
+                                }
+                            }
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="review_box">
-                            <h4>Add a Review</h4>
-                            <p>Your Rating:</p>
-                            <ul class="list">
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            </ul>
-                            <p>Outstanding</p>
-                            <form action="#/" class="form-contact form-review mt-3">
-                                <div class="form-group">
-                                    <input class="form-control" name="name" type="text" placeholder="Enter your name" required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" name="email" type="email" placeholder="Enter email address" required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" name="subject" type="text" placeholder="Enter Subject">
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
-                                </div>
-                                <div class="form-group text-center text-md-right mt-3">
-                                    <button type="submit" class="button button--active button-review">Submit Now</button>
-                                </div>
-                            </form>
+                            @if (HttpContextAccessor.HttpContext.Session.Get<string>("user") != null)
+                            {
+                                Khachhang kh = db.Khachhang.Where(x => x.Email == HttpContextAccessor.HttpContext.Session.Get<string>("user")).SingleOrDefault();
+                                <h4>Add a Review</h4>
+                                <p>Your Rating:</p>
+                                <select id="Rating">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <form action="#/" class="form-contact form-review mt-3">
+                                    <div class="form-group">
+                                        <input class="form-control" name="Mahh" id="Mahh" type="text" value="@Model.Mahh" hidden>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="Makh" id="Makh" type="text" value="@kh.Makh" hidden>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="Ngaygui" id="Ngaygui" type="text" value="@DateTime.Now" hidden>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control different-control w-100" name="Noidung" id="Noidung" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                                    </div>
+                                    <div class="form-group text-center text-md-right mt-3">
+                                        <button type="submit" class="button button--active button-review" id="nhanxet">Submit Now</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <h4> Bạn cần đăng nhập để có thể nhan xet.</h4>
+                                <span> Bạn chưa đăng nhập.</span><br/>
+                                <a href = "/dang-nhap" > Đăng nhập </a>
+                                <span> hoặc </span>
+                                <a href = "/dang-ky" > Đăng ký.</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -308,15 +231,34 @@
 </section>
 <!--================End Product Description Area =================-->
 
-
 <script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="~/vendors/skrollr.min.js"></script>
 <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
-<script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
 <script src="~/vendors/jquery.ajaxchimp.min.js"></script>
 <script src="~/vendors/mail-script.js"></script>
 
-<script src="~/vendors/js/main.js"></script>
 <script>
     $('.category-list').hide();
+</script>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+    $("#nhanxet").click(function () {
+        var review = { Mahh: parseInt($("#Mahh").val()), Makh: parseInt($("#Makh").val()), Manx: 0, Noidung: $("#Noidung").val(), Rating: 5, Ngaygui: null, Rating: parseInt($("#Rating").val()) };
+        var nx = JSON.stringify(review);
+        $.ajax({
+            url: "/Customer/Review",
+            data: {nhanxet: nx},
+            success: function (res) {
+                location.reload();
+            }
+        });
+    });
 </script>
