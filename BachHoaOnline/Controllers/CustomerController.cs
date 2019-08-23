@@ -30,7 +30,7 @@ namespace BachHoaOnline.Controllers
             res.Dienthoai = kh.Dienthoai;
             res.Matkhau = kh.Matkhau;
             db.SaveChanges();
-            return Redirect("/Customer");
+            return Redirect("/thong-tin-ca-nhan");
         }
 
         [Route("dang-nhap")]
@@ -46,12 +46,12 @@ namespace BachHoaOnline.Controllers
             if (kh == null)
             {
                 TempData["status"] = "Email hoặc mật khẩu không đúng.";
-                return View("Login");
+                return Redirect("/dang-nhap");
             }
 
             HttpContext.Session.Set("user", kh.Email);
 
-            return Redirect("/Home");
+            return Redirect("/");
         }
 
         [Route("dang-ky")]
@@ -67,7 +67,7 @@ namespace BachHoaOnline.Controllers
             if (account != null)
             {
                 TempData["Rstatus"] = "Email đã được sử dụng.";
-                return View("Register");
+                return Redirect("/dang-ky");
             }
 
             Khachhang kh = new Khachhang
@@ -79,14 +79,14 @@ namespace BachHoaOnline.Controllers
             db.SaveChanges();
 
             TempData["Rstatus"] = "Đăng ký thành công.";
-            return View("Register");
+            return Redirect("/dang-ky");
         }
 
         [Route("dang-xuat")]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("user");
-            return RedirectToAction("Login");
+            return Redirect("/dang-nhap");
         }
 
         public IActionResult Review(string nhanxet)
