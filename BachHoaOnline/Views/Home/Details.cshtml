@@ -21,6 +21,12 @@
 <meta property="og:description" content="@Model.Mota" />
 <meta property="og:image" content="https://@Context.Request.Host/images/@Model.Hinh" />
 
+@{ 
+    BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
+    Loai loai = db.Loai.Where(x => x.Maloai == Model.Maloai).SingleOrDefault();
+    Chitietloai ctl = db.Chitietloai.Where(x => x.Mactl == Model.Chitietloai).SingleOrDefault();
+}
+
 <!--================Single Product Area =================-->
 <div class="product_image_area">
     <div class="container">
@@ -34,7 +40,7 @@
                     <h3>@Model.Tenhh</h3>
                     <h2>@{float dg = (float)(Model.Dongia - (Model.Dongia * Model.Giamgia / 100));}@dg</h2>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Category</span> : @Model.Maloai</a></li>
+                        <li><a class="active" href="#"><span>Loại sản phẩm </span> : @loai.Tenloai - @ctl.Tenctl</a></li>
                     </ul>
                     <div id="fb-root"></div>
                     <div class="fb-share-button"
@@ -45,7 +51,7 @@
                         @Model.Mota
                     </p>
                     <div class="product_count">
-                        <label for="qty">Quantity:</label>
+                        <label for="qty">Số lượng:</label>
                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                 class="increase items-count" type="button">
                             <i class="ti-angle-left"></i>
@@ -73,12 +79,11 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active show" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-                   aria-selected="true">Reviews</a>
+                   aria-selected="true">Nhận xét</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             @{
-                BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
                 List<Nhanxet> liNhanXet = db.Nhanxet.Where(x => x.Mahh == Model.Mahh).ToList();
             }
             <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -94,16 +99,16 @@
                             }
                             <div class="col-6">
                                 <div class="box_total">
-                                    <h5>Overall</h5>
+                                    <h5>Tổng quan</h5>
                                     @if (liNhanXet != null)
                                     {
                                         <h4>@rating</h4>
-                                        <h6>(@liNhanXet.Count Reviews)</h6>
+                                        <h6>(@liNhanXet.Count Nhận xét)</h6>
                                     }
                                     else
                                     {
                                         <h4>0</h4>
-                                        <h6>(0 Reviews)</h6>
+                                        <h6>(0 Nhận xét)</h6>
                                     }
                                 </div>
                             </div>
@@ -111,7 +116,7 @@
                                 <div class="rating_list">
                                     @if (liNhanXet != null)
                                     {
-                                        <h3>Based on @liNhanXet.Count Reviews</h3>
+                                        <h3>Dựa trên @liNhanXet.Count nhận xét</h3>
                                         <ul class="list">
                                             <li>
                                                 <a href="#">
@@ -144,7 +149,7 @@
                                             <div class="media-body">
                                                 <h4>@kh.Hoten</h4>
                                                 <h5>@nx.Ngaygui</h5>
-                                                <a class="reply_btn" href="#">Tra loi</a>
+                                                <a class="reply_btn" href="#">Trả lời</a>
                                                 @for (int i = 0; i < nx.Rating; ++i)
                                                 {
                                                     <i class="fa fa-star"></i>
@@ -168,7 +173,7 @@
                                                     <div class="media-body">
                                                         <h4>@nv.Hoten</h4>
                                                         <h5>@ht.Ngaygui</h5>
-                                                        <a class="reply_btn" href="#">Reply</a>
+                                                        <a class="reply_btn" href="#">Trả lời</a>
                                                     </div>
                                                 </div>
                                                 <p>
@@ -187,8 +192,8 @@
                             @if (HttpContextAccessor.HttpContext.Session.Get<string>("user") != null)
                             {
                                 Khachhang kh = db.Khachhang.Where(x => x.Email == HttpContextAccessor.HttpContext.Session.Get<string>("user")).SingleOrDefault();
-                                <h4>Add a Review</h4>
-                                <p>Your Rating:</p>
+                                <h4>Nhận xét</h4>
+                                <p>Chấm điểm:</p>
                                 <select id="Rating">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -207,10 +212,10 @@
                                         <input class="form-control" name="Ngaygui" id="Ngaygui" type="text" value="@DateTime.Now" hidden>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control different-control w-100" name="Noidung" id="Noidung" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                                        <textarea class="form-control different-control w-100" name="Noidung" id="Noidung" cols="30" rows="5" placeholder="Nhập nhận xét"></textarea>
                                     </div>
                                     <div class="form-group text-center text-md-right mt-3">
-                                        <button type="submit" class="button button--active button-review" id="nhanxet">Submit Now</button>
+                                        <button type="submit" class="button button--active button-review" id="nhanxet">Đăng ngay</button>
                                     </div>
                                 </form>
                             }

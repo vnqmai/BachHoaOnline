@@ -23,24 +23,24 @@
             <div class="col-lg-6">
                 <div class="login_box_img">
                     <div class="hover">
-                        <h4>New to our website?</h4>
-                        <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        <a class="button button-account" href="/dang-ky">Create an Account</a>
+                        <h4>Bách hóa online xin chào!</h4>
+                        <p>Bách hóa online sản phẩm chính hãng, thông minh, tiện ích, ưu đãi mỗi ngày.</p>
+                        <a class="button button-account" href="/dang-ky">Đăng ký ngay</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
-                    <h3>Log in to enter</h3>
+                    <h3>Đăng nhập</h3>
                     <form class="row login_form" action="Customer/DoLogin" id="contactForm" method="post">
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Địa chỉ email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>                 
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="button button-login w-100">Log In</button>                            
+                            <button type="submit" value="submit" class="button button-login w-100">Đăng nhập</button>                            
                         </div>
                     </form>
                     <span>@{string status = ""; if (TempData["status"] != null) { status = TempData["status"].ToString(); }} @status</span>

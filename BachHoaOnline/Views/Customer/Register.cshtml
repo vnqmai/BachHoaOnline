@@ -22,27 +22,27 @@
             <div class="col-lg-6">
                 <div class="login_box_img">
                     <div class="hover">
-                        <h4>Already have an account?</h4>
-                        <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        <a class="button button-account" href="/dang-nhap">Login Now</a>
+                        <h4>Bạn đã có tài khoản?</h4>
+                        <p>Mua online tại Bách Hóa Online sản phẩm chính hãng, thông minh, tiện ích, ưu đãi mỗi ngày.</p>
+                        <a class="button button-account" href="/dang-nhap">Đăng nhập</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner register_form_inner">
-                    <h3>Create an account</h3>
+                    <h3>Tạo tài khoản</h3>
                     <form class="row login_form" action="Customer/DoRegister" id="register_form" method="post">
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Địa chỉ email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+                            <input type="password" class="form-control" id="confirmPassword" name="Xác nhận mật khẩu" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="button button-register w-100">Register</button>
+                            <button type="submit" value="submit" class="button button-register w-100">Đăng ký</button>
                         </div>
                     </form>
                     <span>@{string status = ""; if (TempData["Rstatus"] != null) { status = TempData["Rstatus"].ToString(); }} @status</span>
