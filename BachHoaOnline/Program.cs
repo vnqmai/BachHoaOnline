@@ -17,8 +17,27 @@ namespace BachHoaOnline
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                    .AddCommandLine(args)
+                    .Build();
+
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseKestrel()
+                .UseConfiguration(config)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration();
+        }
+
+        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        //    WebHost.CreateDefaultBuilder(args)
+        //        .UseStartup<Startup>()
+        //    .UseKestrel(options =>
+        //    {
+        //        options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2);
+        //        options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(1);
+        //    });           
     }
 }
