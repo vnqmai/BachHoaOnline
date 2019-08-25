@@ -2,39 +2,40 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "Frontend";
 }
 
-<h2>Index</h2>
+<h2>Danh sách tài khoản</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Tạo mới tài khoản</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+               Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Matkhau)
+                Mật khẩu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hoten)
+                Họ tên
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gioitinh)
+                Giới tính
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ngaysinh)
+                Ngày sinh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Diachi)
+                Địa chỉ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dienthoai)
+                Điện thoại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Randomkey)
+               Random key
             </th>
             <th></th>
         </tr>
@@ -72,10 +73,13 @@
                 @Html.DisplayFor(modelItem => item.Randomkey)
             </td>
             <td>
-                <a asp-action="Update" asp-route-id="@item.Makh">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Makh">Delete</a>
+                <a asp-action="Update" asp-route-id="@item.Makh">Sửa</a><br />
+                <a asp-action="Delete" asp-route-id="@item.Makh">Xóa</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a href="@Url.Action("Index","Administrator")">Về lại trang quản trị</a>
+</div>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Update";
+    Layout = "Frontend";
 }
 
 @{
@@ -13,9 +14,8 @@
     List<Chitietloai> listCTL = db.Chitietloai.ToList();
 }
 
-<h2>Update</h2>
+<h2>Cập nhật sản phẩm</h2>
 
-<h4>Hanghoa</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,17 +23,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Mahh" />
             <div class="form-group">
-                <label asp-for="Tenhh" class="control-label"></label>
+                <label asp-for="Tenhh" class="control-label">Tên sản phẩm</label>
                 <input asp-for="Tenhh" class="form-control" id="tenhh" />
                 <span asp-validation-for="Tenhh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Tenalias" class="control-label"></label>
+                <label asp-for="Tenalias" class="control-label">Tên alias</label>
                 <input asp-for="Tenalias" class="form-control" id="tenalias" />
                 <span asp-validation-for="Tenalias" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Maloai" class="control-label"></label>
+                <label asp-for="Maloai" class="control-label">Loại sản phẩm</label>
                 <select asp-for="Maloai" class="form-control" asp-items="ViewBag.Maloai">
                     @foreach (var loai in listLoai)
                     {
@@ -43,42 +43,42 @@
                 <span asp-validation-for="Maloai" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Motadonvi" class="control-label"></label>
+                <label asp-for="Motadonvi" class="control-label">Mô tả đơn vị</label>
                 <input asp-for="Motadonvi" class="form-control"/>
                 <span asp-validation-for="Motadonvi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dongia" class="control-label"></label>
+                <label asp-for="Dongia" class="control-label">Đơn giá</label>
                 <input asp-for="Dongia" class="form-control" />
                 <span asp-validation-for="Dongia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Hinh" class="control-label"></label>
+                <label asp-for="Hinh" class="control-label">Hình ảnh</label>
                 <input asp-for="Hinh" type="file" name="Hinh" id="Hinh"/>
                 <span asp-validation-for="Hinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ngaysx" class="control-label"></label>
+                <label asp-for="Ngaysx" class="control-label">Ngày sản xuất</label>
                 <input asp-for="Ngaysx" class="form-control"/>
                 <span asp-validation-for="Ngaysx" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Giamgia" class="control-label"></label>
+                <label asp-for="Giamgia" class="control-label">Giảm giá</label>
                 <input asp-for="Giamgia" class="form-control" />
                 <span asp-validation-for="Giamgia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Solanxem" class="control-label"></label>
+                <label asp-for="Solanxem" class="control-label">Số lần xem</label>
                 <input asp-for="Solanxem" class="form-control" />
                 <span asp-validation-for="Solanxem" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mota" class="control-label"></label>
+                <label asp-for="Mota" class="control-label">Mô tả</label>
                 <input asp-for="Mota" class="form-control" />
                 <span asp-validation-for="Mota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mancc" class="control-label"></label>
+                <label asp-for="Mancc" class="control-label">Nhà cung cấp</label>
                 <select asp-for="Mancc" class="form-control" asp-items="ViewBag.Mancc">
                     @foreach (var ncc in listNCC)
                     {
@@ -88,7 +88,7 @@
                 <span asp-validation-for="Mancc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Maxx" class="control-label"></label>
+                <label asp-for="Maxx" class="control-label">Xuất xứ</label>
                 <select asp-for="Maxx" class="form-control" asp-items="ViewBag.Maxx">
                     @foreach (var xx in listXX)
                     {
@@ -98,7 +98,7 @@
                 <span asp-validation-for="Maxx" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Math" class="control-label"></label>
+                <label asp-for="Math" class="control-label">Thương hiệu</label>
                 <select asp-for="Math" class="form-control" asp-items="ViewBag.Math">
                     @foreach (var th in listTH)
                     {
@@ -108,7 +108,7 @@
                 <span asp-validation-for="Math" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Chitietloai" class="control-label"></label>
+                <label asp-for="Chitietloai" class="control-label">Mô tả chi tiết loại sản phẩm</label>
                 <select asp-for="Chitietloai" class="form-control" asp-items="ViewBag.Chitietloai">
                     @foreach (var ctl in listCTL)
                     {
@@ -118,7 +118,7 @@
                 <span asp-validation-for="Chitietloai" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lưu" class="btn btn-default" />
             </div>
         </form>
         @if (ViewBag.status != null)
@@ -129,7 +129,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Về lại trang danh sách</a>
 </div>
 
 <script src="~/js/jquery.min.js"></script>
