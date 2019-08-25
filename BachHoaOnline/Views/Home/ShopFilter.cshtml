@@ -57,13 +57,14 @@
                     <div class="card-product__img">
                         <img class="card-img" src="~/images/@item.Hinh" alt="">
                         <ul class="card-product__imgOverlay">
+                            <span class="product-name" hidden><a>@item.Tenhh</a></span>
                             <li><button><i class="ti-search"></i></button></li>
-                            <li><button><i class="ti-shopping-cart"></i></button></li>
+                            <li><button class="add-to-cart"><i class="ti-shopping-cart"></i></button></li>
                             <li><button><i class="ti-heart"></i></button></li>
                         </ul>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-product__title"><a href="/san-pham/@item.Tenalias">@item.Tenhh</a></h4>
+                        <h4 class="card-product__title"><a href="/san-pham/@db.Loai.Where(x=>x.Maloai==item.Maloai).SingleOrDefault().Tenloaialias/@item.Tenalias">@item.Tenhh</a></h4>
                         <p class="card-product__price">@item.Dongia</p>
                     </div>
                 </div>
@@ -74,6 +75,7 @@
 </section>
 <!-- End Best Seller -->
 
+<!-- Quantity script -->
 <script>
     $(document).ready(function () {
         $("input[name='category']").on('click', function () {
@@ -183,3 +185,68 @@
         });
     });
 </script>
+<!-- Quantity script -->
+
+<script src="~/js/jquery.min.js"></script>
+<!-- Cart script -->
+<script>
+    $(".add-to-cart").click(function () {
+        var tensp = $(this).parent().parent().find(".product-name").find("a").text();
+        var soluong = 1;
+        if ($('#sst').length > 0) {
+            soluong = $('#sst').val();
+        }
+        $.ajax({
+            url: "/Cart/AddToCart",
+            data: { "tenhh": tensp, "soluong": soluong },
+            success: function (cart) {
+                var htmlCartList = "";
+                total = 0;
+                count = 0;
+                $(cart).each(function (i, item) {
+                    htmlCartList += '<div class="product product-widget"><div class="product-thumb"><img src="images/' + item.hinh + '" alt=""></div>"';
+                    htmlCartList += '<div class="product-body"><h3 class="product-price">' + item.dongia + '<span class="qty"> x' + item.soluong + '</span></h3>';
+                    htmlCartList += '<h2 class="product-name"><a href="#">' + item.tensp + '</a></h2></div>';
+                    htmlCartList += '<button class="cancel-btn"><i class="fa fa-trash"></i></button></div>';
+
+                    total += parseInt(item.thanhTien);
+                    count += 1;
+                })
+                $('.shopping-cart-list').html(htmlCartList);
+                $('#cart-count').html(count);
+                $('#cart-total').html(total);
+
+                window.scrollTo(0, 0);
+                $('#cartt').addClass("open");
+                $('#cartt').attr("aria-expanded", false);
+            }
+        });
+    });
+    $('.cancel-btn').click(function () {
+        var name = $(this).parent().find(".product-name").find('a').text();
+        $.ajax({
+            url: "/Cart/RemoveCartItem",
+            data: { "itemName": name },
+            success: function (cart) {
+                var htmlCartList = "";
+                total = 0;
+                count = 0;
+                $(cart).each(function (i, item) {
+                    htmlCartList += '<div class="product product-widget"><div class="product-thumb"><img src="images/' + item.hinh + '" alt=""></div>"';
+                    htmlCartList += '<div class="product-body"><h3 class="product-price">' + item.dongia + '<span class="qty"> x' + item.soluong + '</span></h3>';
+                    htmlCartList += '<h2 class="product-name"><a href="#">' + item.tensp + '</a></h2></div>';
+                    htmlCartList += '<button class="cancel-btn"><i class="fa fa-trash"></i></button></div>';
+
+                    total += parseInt(item.thanhTien);
+                    count += 1;
+                })
+                $('.shopping-cart-list').html(htmlCartList);
+                $('#cart-count').html(count);
+                $('#cart-total').html(total);
+                if ($('#tbCart').length > 0)
+                    location.reload();
+            }
+        });
+    });
+</script>
+<!-- Cart script -->
