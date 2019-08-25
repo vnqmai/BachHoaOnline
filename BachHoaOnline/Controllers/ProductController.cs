@@ -16,16 +16,31 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hanghoa.ToList());
         }
 
         public IActionResult Create()
-        {            
+        {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View();
         }
 
         public IActionResult DoCreate(Hanghoa hh, IFormFile Hinh)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             if (Hinh != null)
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", Hinh.FileName);
@@ -44,11 +59,21 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Update(int id)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hanghoa.Where(x=>x.Mahh==id).SingleOrDefault());
         }
 
         public IActionResult DoUpdate(Hanghoa hh, IFormFile Hinh)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             Hanghoa des = db.Hanghoa.Where(x => x.Mahh == hh.Mahh).SingleOrDefault();
             if (Hinh != null)
             {
@@ -79,11 +104,21 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hanghoa.Where(x => x.Mahh == id).SingleOrDefault());
         }
 
         public IActionResult DoDelete(Hanghoa hh)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             db.Hanghoa.Remove(db.Hanghoa.Where(x=>x.Mahh==hh.Mahh).SingleOrDefault());
             db.SaveChanges();
             ViewBag.status = "Đã xóa thành công.";

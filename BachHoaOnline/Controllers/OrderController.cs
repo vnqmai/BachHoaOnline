@@ -13,16 +13,31 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hoadon.ToList());
         }
 
         public IActionResult Update(int id)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hoadon.Where(x=>x.Mahd == id).SingleOrDefault());
         }
 
         public IActionResult DoUpdate(Hoadon hd)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             Hoadon des = db.Hoadon.Where(x => x.Mahd == hd.Mahd).SingleOrDefault();
             des.Hoten = hd.Hoten;
             des.Diachi = hd.Diachi;
@@ -37,11 +52,21 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             return View(db.Hoadon.Where(x => x.Mahd == id).SingleOrDefault());
         }
 
         public IActionResult DoDelete(Hoadon hd)
         {
+            if (HttpContext.Session.Get<string>("user") != "admin")
+            {
+                return RedirectToAction("Error", "Administrator");
+            }
+
             List<Chitiethoadon>cthd = db.Chitiethoadon.Where(x => x.Mahd == hd.Mahd).ToList();
             foreach (Chitiethoadon ct in cthd)
             {
