@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "Frontend";
 }
 
 @{
@@ -13,10 +14,10 @@
     List<Chitietloai> listCTL = db.Chitietloai.ToList();
 }
 
-<h2>Index</h2>
+<h2>Danh sách sản phẩm</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới sản phẩm</a>
 </p>
 
 <div class="container">
@@ -39,9 +40,6 @@
                         </th>                        
                         <th>
                             @Html.DisplayNameFor(model => model.Mota)
-                        </th>
-                        <th>
-                            Chi tiết loại                            
                         </th>
                         <th>
                             Loại sản phẩm
@@ -83,9 +81,6 @@
                             <td>@item.Mota</td>
                         }
                         <td>
-                            @listCTL.Where(x => x.Mactl == item.Chitietloai).SingleOrDefault().Tenctl;
-                        </td>
-                        <td>
                             @listLoai.Where(x => x.Maloai == item.Maloai).SingleOrDefault().Tenloai;
                         </td>
                         <td>
@@ -98,8 +93,8 @@
                             @listXX.Where(x => x.Maxx == item.Maxx).SingleOrDefault().Tenxx;
                         </td>
                         <td>
-                            <a asp-action="Update" asp-route-id="@item.Mahh">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Mahh">Delete</a>
+                            <a asp-action="Update" asp-route-id="@item.Mahh">Sửa</a><br />
+                            <a asp-action="Delete" asp-route-id="@item.Mahh">Xóa</a>
                         </td>
                     </tr>
                     }

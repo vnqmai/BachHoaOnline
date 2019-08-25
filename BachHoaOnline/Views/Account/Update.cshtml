@@ -2,33 +2,33 @@
 
 @{
     ViewData["Title"] = "Update";
+    Layout = "Frontend";
 }
 
-<h2>Update</h2>
+<h2>Cập nhật tài khoản</h2>
 
-<h4>Khachhang</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-push-4">
         <form asp-action="DoUpdate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Makh" />
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email" class="control-label">Email</label>
                 <input asp-for="Email" class="form-control" disabled value="@Model.Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Matkhau" class="control-label"></label>
+                <label asp-for="Matkhau" class="control-label">Mật khẩu</label>
                 <input asp-for="Matkhau" type="password" class="form-control" value="@Model.Matkhau" />
                 <span asp-validation-for="Matkhau" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Hoten" class="control-label"></label>
+                <label asp-for="Hoten" class="control-label">Họ tên</label>
                 <input asp-for="Hoten" class="form-control" value="@Model.Hoten" />
                 <span asp-validation-for="Hoten" class="text-danger"></span>
             </div>
-            <select asp-for="Gioitinh" class="form-control">
+            <select asp-for="Gioitinh" class="form-control">Giới tính
                 @if (Model.Gioitinh == true)
                 {
                     <option value="true" selected>Nam</option>
@@ -41,27 +41,27 @@
                 }
             </select>
             <div class="form-group">
-                <label asp-for="Ngaysinh" class="control-label"></label>
+                <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
                 <input asp-for="Ngaysinh" class="form-control" type="datetime" value="@Model.Ngaysinh" />
                 <span asp-validation-for="Ngaysinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Diachi" class="control-label"></label>
+                <label asp-for="Diachi" class="control-label">Địa chỉ</label>
                 <input asp-for="Diachi" class="form-control" value="@Model.Diachi" />
                 <span asp-validation-for="Diachi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dienthoai" class="control-label"></label>
+                <label asp-for="Dienthoai" class="control-label">Điện thoại</label>
                 <input asp-for="Dienthoai" class="form-control" value="@Model.Dienthoai" />
                 <span asp-validation-for="Dienthoai" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Randomkey" class="control-label"></label>
+                <label asp-for="Randomkey" class="control-label">Random key</label>
                 <input asp-for="Randomkey" class="form-control" value="@Model.Randomkey" />
                 <span asp-validation-for="Randomkey" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lưu" class="btn btn-default" />
             </div>
         </form>
         @if (ViewBag.status!=null)
@@ -72,6 +72,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Về lại trang danh sách</a>
 </div>
 

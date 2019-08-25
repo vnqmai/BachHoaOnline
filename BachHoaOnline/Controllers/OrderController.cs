@@ -13,7 +13,7 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.Get<string>("user") != "admin")
+            if (HttpContext.Session.Get<string>("user") != "admin@bachhoaonline.herokuapp.com")
             {
                 return RedirectToAction("Error", "Administrator");
             }
@@ -23,7 +23,7 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Update(int id)
         {
-            if (HttpContext.Session.Get<string>("user") != "admin")
+            if (HttpContext.Session.Get<string>("user") != "admin@bachhoaonline.herokuapp.com")
             {
                 return RedirectToAction("Error", "Administrator");
             }
@@ -33,7 +33,7 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult DoUpdate(Hoadon hd)
         {
-            if (HttpContext.Session.Get<string>("user") != "admin")
+            if (HttpContext.Session.Get<string>("user") != "admin@bachhoaonline.herokuapp.com")
             {
                 return RedirectToAction("Error", "Administrator");
             }
@@ -52,7 +52,7 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult Delete(int id)
         {
-            if (HttpContext.Session.Get<string>("user") != "admin")
+            if (HttpContext.Session.Get<string>("user") != "admin@bachhoaonline.herokuapp.com")
             {
                 return RedirectToAction("Error", "Administrator");
             }
@@ -62,7 +62,7 @@ namespace BachHoaOnline.Controllers
 
         public IActionResult DoDelete(Hoadon hd)
         {
-            if (HttpContext.Session.Get<string>("user") != "admin")
+            if (HttpContext.Session.Get<string>("user") != "admin@bachhoaonline.herokuapp.com")
             {
                 return RedirectToAction("Error", "Administrator");
             }
