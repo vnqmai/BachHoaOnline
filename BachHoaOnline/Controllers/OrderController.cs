@@ -49,8 +49,7 @@ namespace BachHoaOnline.Controllers
             }
             db.Hoadon.Remove(db.Hoadon.Where(x => x.Mahd == hd.Mahd).SingleOrDefault());
             db.SaveChanges();
-            ViewBag.status = "Đã xóa thành công.";
-            return View("Delete");
+            return View("Index",db.Hoadon.ToList());
         }
     }
 }

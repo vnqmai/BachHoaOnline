@@ -48,31 +48,15 @@
                                 <span asp-validation-for="Diachi" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <label asp-for="Ngaydat" class="control-label">Ngày đặt</label>
-                                <input asp-for="Ngaydat" class="form-control" />
-                                <span asp-validation-for="Ngaydat" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <label asp-for="Ngaygiao" class="control-label">Ngày giao</label>
-                                <input asp-for="Ngaygiao" class="form-control"/>
-                                <span asp-validation-for="Ngaygiao" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <label asp-for="Cachthanhtoan" class="control-label">Cách thanh toán</label>
-                                <select asp-for="Cachthanhtoan" class="form-control">
-                                    <option value="Trực tiếp">Trực tiếp</option>
-                                    <option value="Paypal">Paypal</option>
-                                    <option value="Onepay">Onepay</option>
-                                </select>
-                                <span asp-validation-for="Cachthanhtoan" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
                                 <label asp-for="Ghichu" class="control-label">Ghi chú</label>
                                 <input asp-for="Ghichu" class="form-control" />
                                 <span asp-validation-for="Ghichu" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <input type="submit" value="Thanh toán" class="btn btn-default" />
+                                <input asp-for="Cachthanhtoan" class="form-control"  value="Trực tiếp" hidden/>
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="submit" value="Đặt hàng" class="btn btn-default" />
                             </div>
                         </form>
                     }

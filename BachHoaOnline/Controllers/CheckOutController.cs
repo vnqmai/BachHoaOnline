@@ -32,6 +32,9 @@ namespace BachHoaOnline.Controllers
             Khachhang kh = db.Khachhang.Where(x => x.Email == HttpContext.Session.Get<string>("user")).SingleOrDefault();
             hd.Makh = kh.Makh;
             hd.Matrangthai = 1;
+            hd.Ngaydat = DateTime.Now;
+            hd.Ngaygiao = DateTime.Now.AddDays(7);
+            hd.Cachthanhtoan = hd.Cachthanhtoan;
 
             db.Hoadon.Add(hd);
             db.SaveChanges();
@@ -102,8 +105,8 @@ namespace BachHoaOnline.Controllers
                 },
                 RedirectUrls = new RedirectUrls()
                 {
-                    CancelUrl = "https://localhost:44373/CheckOut/Paypal_Error",
-                    ReturnUrl = "https://localhost:44373/CheckOut/Paypal_Success"
+                    CancelUrl = "https://" + Request.Host.ToString()+"/CheckOut/Paypal_Error",
+                    ReturnUrl = "https://" + Request.Host.ToString() + "/CheckOut/Paypal_Success"
                 },
                 Payer = new Payer()
                 {

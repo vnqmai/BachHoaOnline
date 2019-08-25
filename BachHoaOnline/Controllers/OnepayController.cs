@@ -23,7 +23,7 @@ namespace BachHoaOnline.Controllers
             List<CartItem> cart = HttpContext.Session.Get<List<CartItem>>("gioHang");
             foreach (CartItem product in cart)
             {
-                totalPrices += (decimal)product.ThanhTien;
+                totalPrices += (decimal)(product.ThanhTien *100);
             }
             string amount = totalPrices.ToString();
             string url = RedirectOnepay(RandomString(), amount, "192.186.1.7");
@@ -39,7 +39,7 @@ namespace BachHoaOnline.Controllers
             conn.SetSecureSecret(OnepayProperty.HASH_CODE);
 
             // Xu ly tham so tra ve va du lieu ma hoa
-            string a = "https://localhost:44373/Onepay/Onepay" + Request.QueryString.ToString();
+            string a = "https://" + Request.Host.ToString() + "/Onepay/Onepay" + Request.QueryString.ToString();
             hashvalidateResult = conn.Process3PartyResponse(new Uri(a).ParseQueryString());
 
             // Lay tham so tra ve tu cong thanh toan
