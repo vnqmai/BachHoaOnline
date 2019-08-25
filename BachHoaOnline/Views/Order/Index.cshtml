@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "Frontend";
 }
 @{ 
     BACHHOA_ONLINEContext db = new BACHHOA_ONLINEContext();
@@ -13,34 +12,34 @@
     <thead>
         <tr>
             <th>
-                Tài khoản
+                @Html.DisplayNameFor(model => model.Hoten)
             </th>
             <th>
-                Trạng thái
+                @Html.DisplayNameFor(model => model.Diachi)
             </th>
             <th>
-                Cách thanh toán
+                @Html.DisplayNameFor(model => model.Ngaydat)
             </th>
             <th>
-                Ngày đặt
+                @Html.DisplayNameFor(model => model.Ngaygiao)
             </th>
             <th>
-                Ngày giao
+                @Html.DisplayNameFor(model => model.Cachthanhtoan)
             </th>
             <th>
-                Họ tên
+                @Html.DisplayNameFor(model => model.Cachvanchuyen)
             </th>
             <th>
-                Địa chỉ
+                @Html.DisplayNameFor(model => model.Phivanchuyen)
             </th>
             <th>
-                Cách vận chuyển
+                @Html.DisplayNameFor(model => model.Ghichu)
             </th>
             <th>
-                Phí vận chuyển
+                @Html.DisplayNameFor(model => model.MakhNavigation)
             </th>
             <th>
-                Ghi chú
+                @Html.DisplayNameFor(model => model.MatrangthaiNavigation)
             </th>
             <th></th>
         </tr>
@@ -49,13 +48,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @db.Khachhang.Where(x => x.Makh == item.Makh).SingleOrDefault().Email
+                @Html.DisplayFor(modelItem => item.Hoten)
             </td>
             <td>
-                @db.Trangthai.Where(x => x.Matrangthai == item.Matrangthai).SingleOrDefault().Tentrangthai
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cachthanhtoan)
+                @Html.DisplayFor(modelItem => item.Diachi)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ngaydat)
@@ -64,10 +60,7 @@
                 @Html.DisplayFor(modelItem => item.Ngaygiao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hoten)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Diachi)
+                @Html.DisplayFor(modelItem => item.Cachthanhtoan)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cachvanchuyen)
@@ -79,8 +72,14 @@
                 @Html.DisplayFor(modelItem => item.Ghichu)
             </td>
             <td>
-                <a asp-action="Update" asp-route-id="@item.Mahd">Sửa</a><br />
-                <a asp-action="Delete" asp-route-id="@item.Mahd">Xóa</a>
+                @db.Khachhang.Where(x=>x.Makh==item.Makh).SingleOrDefault().Hoten
+            </td>
+            <td>
+                @db.Trangthai.Where(x => x.Matrangthai == item.Matrangthai).SingleOrDefault().Tentrangthai
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@item.Mahd">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Mahd">Delete</a>
             </td>
         </tr>
 }

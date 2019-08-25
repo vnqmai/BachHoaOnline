@@ -1,67 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "Frontend";
 }
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300" rel="stylesheet"/>
-<style>
-    body {
-        font-family: "Roboto";
-    }
 
-    h1 {
-        text-align: center;
-        margin: 80px 0;
-        font-weight: 300;
-    }
-
-    h3 {
-        text-align: center;
-        margin: 0 0 60px 0;
-        font-weight: 100;
-        text-transform: uppercase;
-        color: #384aeb;
-    }
-
-    .nav {
-        width: 500px;
-        margin: auto;
-        text-align: center;
-        list-style-type: none;
-        background: white;
-        color: white;
-        padding: 60px;
-        letter-spacing: 0.5em;
-        font-weight: 300;
-        border-radius: 20px;
-    }
-
-    .btn {
-        padding: 50px;
-        width: 80%;
-        background: #a1a9f3;
-        margin: 30px 0px;
-        color: #2c3e50;
-        border-radius: 10px;
-    }
-
-    a {
-        text-decoration: none;
-        color: #384aeb;
-    }
-
-</style>
-
-<ul class="nav">
-    <h3>Chức năng quản trị</h3>
-    <a href="@Url.Action("Index","Product")"><li class="btn">Quản lý sản phẩm</li></a>
-    <a href="@Url.Action("Index","Order")"><li class="btn">Quản lý hóa đơn</li></a>
-    <a href="@Url.Action("Index","Account")"><li class="btn">Quản lý tài khoản</li></a>
-</ul>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-<script>
-    TweenMax.from("h1", 0.5, { opacity: 0, scale: 0 }, 2);
-    TweenMax.from("h3", 0.5, { opacity: 0, scale: 0 }, 2);
-
-    TweenMax.staggerFrom(".btn", 2, { scale: 0.7, opacity: 0, delay: 0.5, ease: Elastic.easeOut }, 0.2);
-</script>
+<a href="@Url.Action("Index","Product")">Quản lý sản phẩm</a>
+<a href="@Url.Action("Index","Order")">Quản lý hóa đơn</a>
+<a href="@Url.Action("Index","Account")">Quản lý tài khoản</a>
